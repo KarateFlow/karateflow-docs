@@ -38,6 +38,9 @@ La cronologia delle sessioni di sviluppo, i problemi riscontrati e il registro d
 ### 📝 3. Definizione di una Branching Strategy
 Ho voluto definire formalmente la branching strategy che adotterò durante lo sviluppo del progetto all'interno del file [branching-strategy.md](./branching-strategy.md)
 
+### 📝 3. WBS
+Ho impostato una semplice WBS nel file [wbs.md](wbs.md) per tenere traccia dei task, che andrò a censire anche sulla bacheca di GitHub. Per ora non tengo conto dei tempi per non introdurre un overhead poco utile. 
+
 ## 🚀 Come Consultare questo Progetto durante la Valutazione
 1. Parti dal documento di **[Requisiti e Architettura](./requisiti-architettura.md)** per comprendere le scelte tecnologiche e i vincoli del server Raspberry Pi 5.
 2. Consulta il **Diario di Bordo** per verificare come il software è cambiato nel tempo e come sono stati risolti i problemi infrastrutturali.
