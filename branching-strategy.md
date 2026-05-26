@@ -91,3 +91,27 @@ Quando ho completato tutti i task di una determinata fase e l'ambiente di Stagin
 ## 🔒 4. Configurazione della Branch Protection Rule su GitHub
 
 Per maggiore sicurezza ho applicato una regola di protezione sul branch `main` per le tre repository (be, fe, infra). 
+
+---
+
+## 📝 5. Convenzione sui Messaggi di Commit e Task (Conventional Commits)
+
+Al fine di garantire la massima leggibilità dello storico di Git e standardizzare la nomenclatura dei task sulla bacheca il progetto adotta rigorosamente la specifica internazionale [**Conventional Commits 1.0.0**](https://www.conventionalcommits.org/en/v1.0.0/).
+
+Ogni commit e ogni titolo di task nella bacheca deve seguire la struttura: `<tipo>(<ambito>): <descrizione breve>`
+
+### 📌 Tipologie di costrutti utilizzati (Types)
+* **`feat`** (Feature): Introduzione di una nuova funzionalità applicativa o infrastrutturale che porta valore diretto all'utente o al sistema (es. generazione di uno scheletro applicativo, implementazione di un endpoint).
+* **`chore`** (Routine): Attività di manutenzione, pulizia del codice o configurazione di strumenti che non modificano la logica di business e non alterano il comportamento del software a runtime (es. setup di un linter, configurazione di plugin Maven/npm).
+* **`docs`** (Documentazione): Modifiche esclusive ai file di documentazione in formato Markdown, senza alcun impatto sul codice sorgente.
+* **`test`** (Testing): Scrittura, refactoring o integrazione di suite di test unitari o d'integrazione (JUnit, Mockito, ecc..).
+* **`devops`** (Infrastruttura/CI): Modifiche relative alle pipeline di Continuous Integration, script di automazione (Jenkinsfile) o configurazioni di provisioning (Terraform).
+
+### 🔍 Ambiti di applicazione (Scopes)
+Lo scope inserito tra parentesi indica il perimetro logico del repository oggetto della modifica:
+* `(be)`: Operazione limitata al backend (`karateflow-be`).
+* `(fe)`: Operazione limitata al frontend (`karateflow-fe`).
+* `(infra)`: Operazione legata all'infrastruttura o all'automazione (`karateflow-infra`).
+
+### 🎓 Giustificazione Metodologica
+L'adozione di questo standard risponde ai criteri di ingegneria del software raccomandati dalla letteratura DevOps industriale. La separazione netta tra modifiche evolutive (`feat`) e modifiche correttive o di routine (`chore`, `docs`) riduce drasticamente il carico cognitivo durante le fasi di revisione del codice (Pull Request). Inoltre, costringe lo sviluppatore a mantenere l'atomicità dei task: la necessità di inserire più prefissi in un unico messaggio è un indicatore automatico (code smell sintattico) di un task troppo ampio che richiede di essere frammentato in sotto-attività più gestibili.
