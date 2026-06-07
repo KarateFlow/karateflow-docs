@@ -40,7 +40,25 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
   * 1.2.3.4 Collegamento Jenkinsfiles alla repository su github.
 
 #### 1.3 Fase 2: Analisi Funzionale e Raccolta dei Requisiti
-*(Verrà dettagliata alla fine della Fase 1.)*
+* **1.3.1 Modellazione del Dominio e Identificazione degli Attori (WP 2.1)**
+  * 1.3.1.1 Identificazione e Profilazione delle Personas (Attori).
+    * *Descrizione*: Definizione formale dei ruoli operativi (Coach e Atleta), mappando confini di accesso e visibilità.
+    * *Rilascio*: Sezione "Attori del Sistema" nella documentazione.
+  * 1.3.1.2 Definizione del Modello dei Dati Spaziale (Schema Entità MVP).
+    * *Descrizione*: Mappatura analitica dei campi, tipi di dato e relazioni logiche (es. Atleta-Sessioni) per MongoDB.
+    * *Rilascio*: Dizionario dati e schemi JSON/BSON nel diario di bordo.
+* **1.3.2 Formalizzazione delle Specifiche ed Elaborazione dei Ticket (WP 2.2)**
+  * 1.3.2.1 Scrittura del documento dei Requisiti Funzionali (`core-requirements.md`).
+    * *Descrizione*: Stesura specifiche in `karateflow-docs` con Epiche e Storie (ID, Type, Title, Description, Status, Assignee, Priority).
+    * *Rilascio*: File `core-requirements.md` fuso in `main`.
+  * 1.3.2.2 Definizione dei Criteri di Accettazione in Formato BDD.
+    * *Descrizione*: Elaborazione scenari *Given-When-Then* per ogni User Story.
+    * *Rilascio*: Scenari BDD integrati in `core-requirements.md`.
+* **1.3.3 Governance della Bacheca e Configurazione della Tracciabilità (WP 2.3)**
+  * 1.3.3.1 Configurazione del Workflow di Triage su GitHub Projects.
+    * *Descrizione*: Implementazione flusso di classificazione e creazione card (da `KF-1` a `KF-5`) con metadati.
+    * *Rilascio*: Kanban Board popolata in colonna "To Do".
+
 #### 1.4 Fase 3: Sviluppo Core Backend
 *(Verrà dettagliata alla fine della Fase 2.)*
 
