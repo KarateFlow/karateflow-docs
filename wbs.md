@@ -65,5 +65,5 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
 #### 1.5 Fase 4: Provisioning Infrastruttura
 *(Verrà dettagliata alla fine della Fase 3.)* 
 
-#### 1.6 Fase 5: Sviluppo Core Frontend
+#### 1.6 Fase 5: Incremento funzionale e Analisi avanzata performance
 *(Verrà dettagliata alla fine della Fase 4.)*
