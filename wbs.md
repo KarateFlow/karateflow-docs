@@ -60,7 +60,53 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
     * *Rilascio*: Kanban Board popolata in colonna "To Do".
 
 #### 1.4 Fase 3: Sviluppo, Testing e consegna dell'MVP
-*(Verrà dettagliata alla fine della Fase 2.)*
+* **1.4.1 Sviluppo e Integrazione Feature: Inserimento Nuovo Atleta (WP 3.1)**
+  * 1.4.1.1 Implementazione Struttura Dati e Persistenza Atleta (Task: KF-1-BE-1).
+    * *Descrizione*: Definizione della classe di dominio `Athlete` con annotazioni Spring Data MongoDB (campi: nome, cognome, dataNascita, noteMediche, ecc.). Strutturazione del repository estendendo `MongoRepository`.
+    * *Rilascio*: Entità e Repository integrati nel codice sorgente di `karateflow-be`.
+  * 1.4.1.2 Esposizione delle API REST di Scrittura e Validazione (Task: KF-1-BE-2).
+    * *Descrizione*: Sviluppo del service layer e del REST Controller per l'endpoint `POST /api/v1/athletes`. Configurazione delle validazioni JSR-303 per campi obbligatori e test unitari con MockMvc.
+    * *Rilascio*: Controller REST e Service funzionanti e testati in `karateflow-be`.
+  * 1.4.1.3 Sviluppo Integrazione Client HTTP Frontend (Task: KF-1-FE-1).
+    * *Descrizione*: Implementazione dell'interfaccia TypeScript `Athlete` e scrittura del servizio Angular per la gestione delle chiamate HttpClient verso l'endpoint POST.
+    * *Rilascio*: Servizio HTTP Angular codificato nel modulo core di `karateflow-fe`.
+  * 1.4.1.4 Implementazione Interfaccia di Registrazione Atleta (Task: KF-1-FE-2).
+    * *Descrizione*: Sviluppo del componente UI per l'acquisizione dati (Reactive Forms) includendo validazioni client-side e gestione `noteMediche`.
+    * *Rilascio*: Schermata Form di registrazione accessibile in `karateflow-fe`.
+
+* **1.4.2 Sviluppo e Integrazione Modulo Consultazione e Aggiornamento (WP 3.2)**
+  * 1.4.2.1 Implementazione API REST per Lettura ed Elenco (Task: KF-2-BE-1).
+    * *Descrizione*: Estensione di controller e service per l'endpoint `GET /api/v1/athletes`. Recupero dei record dalla collection e mappatura nei DTO.
+    * *Rilascio*: Endpoint GET integrato e verificato in `karateflow-be`.
+  * 1.4.2.2 Sviluppo Componente UI Tabella Squadra (Task: KF-2-FE-1).
+    * *Descrizione*: Sviluppo del componente di visualizzazione tabellare degli atleti con caricamento dati in `ngOnInit`.
+    * *Rilascio*: Tabella riassuntiva elenco squadra in `karateflow-fe`.
+  * 1.4.2.3 Configurazione Routing e Dettaglio Profilo (Task: KF-2-FE-2).
+    * *Descrizione*: Configurazione rotte parametrizzate nell'Angular Router per la navigazione verso la scheda del singolo atleta.
+    * *Rilascio*: Sistema di navigazione implementato in `karateflow-fe`.
+  * 1.4.2.4 API REST di Aggiornamento Dati Atleta (Task: KF-3-BE-1).
+    * *Descrizione*: Sviluppo dell'endpoint `PUT /api/v1/athletes/{id}` per la gestione delle modifiche anagrafiche e sanitarie.
+    * *Rilascio*: Logica di update integrata in `karateflow-be`.
+  * 1.4.2.5 Schermata e Form di Modifica Dati (Task: KF-3-FE-1).
+    * *Descrizione*: Vista di dettaglio profilo in Angular con caricamento dati pregressi nel form e sottomissione richiesta PUT.
+    * *Rilascio*: Interfaccia utente di editing completata in `karateflow-fe`.
+
+* **1.4.3 Sviluppo e Integrazione Modulo Test Prestazionali (WP 3.3)**
+  * 1.4.3.1 Modellazione e API di Registrazione Test Execution (Task: KF-4-BE-1).
+    * *Descrizione*: Creazione della classe documentale `TestExecution` (collection `test_execution`) con array di `performedExercises`. Sviluppo endpoint `POST /api/v1/tests` con validazione dei parametri.
+    * *Rilascio*: Componenti logici e API per la memorizzazione dei test in `karateflow-be`.
+  * 1.4.3.2 Sviluppo Interfaccia Form Acquisizione Sessioni (Task: KF-4-FE-1).
+    * *Descrizione*: Codifica del form reattivo Angular per l'inserimento di sessioni di test (tipologia, noteCoach) e multipli esercizi (`performedExercises`).
+    * *Rilascio*: Schermata form di inserimento sessioni in `karateflow-fe`.
+  * 1.4.3.3 Validazione Client-Side e Gestione Errori Formato (Task: KF-4-FE-2).
+    * *Descrizione*: Sviluppo validatori per bloccare l'invio in caso di dati non numerici o non validi negli esercizi della sessione.
+    * *Rilascio*: Logica di validazione e feedback di errore in `karateflow-fe`.
+  * 1.4.3.4 API REST di Recupero Storico Performance (Task: KF-5-BE-1).
+    * *Descrizione*: Implementazione dell'endpoint `GET /api/v1/tests?athleteId={id}` per estrazione cronologica decrescente delle sessioni dell'atleta.
+    * *Rilascio*: Logica di query e sorting (athleteId + dataEsecuzione) in `karateflow-be`.
+  * 1.4.3.5 Componente UI Elenco Cronologico Performance (Task: KF-5-FE-1).
+    * *Descrizione*: Sviluppo modulo visivo per mostrare l'andamento dei test con possibilità di espandere le sessioni per vedere i dettagli degli esercizi svolti.
+    * *Rilascio*: Storico prestazioni atleta visibile in `karateflow-fe`.
 
 #### 1.5 Fase 4: Provisioning Infrastruttura
 *(Verrà dettagliata alla fine della Fase 3.)* 
