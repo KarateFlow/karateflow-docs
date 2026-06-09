@@ -59,7 +59,7 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
     * *Descrizione*: Implementazione flusso di classificazione e creazione card (da `KF-1` a `KF-5`) con metadati.
     * *Rilascio*: Kanban Board popolata in colonna "To Do".
 
-#### 1.4 Fase 3: Sviluppo Core Backend
+#### 1.4 Fase 3: Sviluppo, Testing e consegna dell'MVP
 *(Verrà dettagliata alla fine della Fase 2.)*
 
 #### 1.5 Fase 4: Provisioning Infrastruttura
