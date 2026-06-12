@@ -57,36 +57,35 @@ Sebbene la configurazione del Raspberry Pi 5 sia attuabile manualmente, l'introd
 
 ## 5. Tabella di Marcia per lo Sviluppo Incrementale
 
-Il progetto seguirà un approccio evolutivo e incrementale, strutturato per validare l'infrastruttura di build e automazione prima di stratificare la complessità del dominio applicativo.
+Il progetto segue un approccio *Rolling Wave Planning*, dove le fasi imminenti sono dettagliate e le successive sono mantenute a livello macro, permettendo flessibilità e adattamento.
 
-### Fase 0: Setup Ecosistema e Bootstrapping (In corso)
-* **Attività**: Creazione dell'Organizzazione GitHub e inizializzazione dei quattro repository (`karateflow-be`, `-fe`, `-infra`, `-docs`).
-* **Documentazione**: Configurazione del file dei requisiti iniziali e apertura del Diario di Bordo (`01-setup.md`). Configurazione delle *Branch Protection Rules* sul branch `main`.
+### Fase 0: Setup Ecosistema e Bootstrapping (Completata)
+* **Attività**: Creazione dell'Organizzazione GitHub, inizializzazione dei repository (`be`, `fe`, `infra`, `docs`) e configurazione delle *Branch Protection Rules*.
+* **Documentazione**: Stesura della WBS, dei requisiti iniziali e della strategia di branching (Trunk-Based Development).
+* **Governance**: Configurazione della *Development Board* su GitHub Projects.
 
-### Fase 1: Skeletons & setup pipeline CI/CD
-* **Attività**: Generazione dello scheletro backend con Spring Boot Initializer e dell'applicazione frontend con Angular (CLI). 
-* **Automazione**: Configurazione iniziale di Jenkins sulla macchina di sviluppo. Scrittura di un `Jenkinsfile` minimale per BE e FE mirato a validare esclusivamente i processi di clonazione del codice, installazione delle dipendenze e compilazione ad ogni commit.
+### Fase 1: Skeletons & Setup Pipeline CI/CD (Completata)
+* **Backend**: Inizializzazione progetto Spring Boot con analisi statica PMD.
+* **Frontend**: Inizializzazione workspace Angular con ESLint.
+* **Automazione**: Installazione Jenkins locale e scrittura dei `Jenkinsfile` minimali per validare compilazione e build statica.
 
-### Fase 2: Analisi Funzionale e Modellazione del Dominio
-* **Attività**: Raccolta dettagliata dei requisiti funzionali della piattaforma KarateFlow.
-* **Progettazione**: Definizione formale delle entità di business (Atleta, Test, Esercizio) e stesura del contratto delle API REST (endpoint, metodi HTTP, payloads e risposte).
+### Fase 2: Analisi Funzionale e Raccolta dei Requisiti (Completata)
+* **Modellazione**: Identificazione degli attori (Coach, Atleta) e definizione del modello dati spaziale per MongoDB.
+* **Specifiche**: Redazione di `core-requirements.md` con Epiche, User Stories e criteri di accettazione in formato BDD (*Given-When-Then*).
+* **Governance**: Configurazione del workflow di triage e popolamento della board con i Work Packages della Fase 3.
 
-### Fase 3: Sviluppo Core BE
-* **Infrastruttura (Terraform)**: Scrittura dei primi script Terraform nel repository `karateflow-infra` per configurare il cluster K3s sul Raspberry Pi 5, isolando il namespace logico dedicato allo Staging (`karateflow-staging`) e definendo le quote di risorse hardware.
-* **Sviluppo**: Implementazione delle prime funzionalità CRUD del backend (gestione atleti e inserimento test) e scrittura dei test unitari isolati con JUnit 5, Mockito e Hamcrest.
+### Fase 3: Sviluppo, Testing e Consegna dell'MVP (In corso)
+L'implementazione segue un approccio orientato alle feature (vertical slices), garantendo che ogni incremento porti valore funzionale immediato.
+* **WP 3.1: Inserimento Nuovo Atleta**: Implementazione persistenza MongoDB, API REST di scrittura e form di registrazione reattivo in Angular.
+* **WP 3.2: Consultazione e Aggiornamento**: API di lettura/update e componenti UI per la visualizzazione tabellare e la modifica del profilo atleta.
+* **WP 3.3: Modulo Test Prestazionali**: Modellazione delle sessioni di test, API di registrazione performance e interfaccia di acquisizione dati multi-esercizio.
 
-### Fase 4: Provisioning Infrastruttura
-* **Pipeline**: Estensione del `Jenkinsfile` per includere i test automatizzati, la containerizzazione dell'app (Docker multi-stage) e il primo deploy automatico nel cluster K3s di Staging.
+### Fase 4: Provisioning Infrastruttura (Pianificata)
+* **IaC**: Utilizzo di Terraform per il provisioning del cluster K3s su Raspberry Pi 5.
+* **CI/CD**: Estensione pipeline per containerizzazione (Docker) e deploy automatico in ambiente di Staging.
+* **Ambienti**: Configurazione dei namespace di Staging e Produzione con isolamento delle risorse e quote hardware.
 
-### Fase 5: Sviluppo Frontend e Integrazione
-* **Sviluppo**: Implementazione dell'interfaccia utente in Angular (creazione delle viste per l'inserimento dati e dashboard atleti).
-* **Integrazione**: Connessione dei componenti Angular agli endpoint REST del backend sviluppati nella fase precedente. Esecuzione dei test di integrazione frontend.
-* **Pipeline**: Automazione del rilascio del frontend statico all'interno dell'ambiente di Staging.
-
-### Fase 6: Quality Management, Security & Production Rollout
-* **Qualità**: Integrazione bloccante nella pipeline Jenkins dei controlli di qualità centralizzati su **SonarQube** (identificazione del debito tecnico, code smells, ESLint ecc..). 
-* **Sicurezza**: Integrazione e configurazione di **Keycloak** per proteggere l'accesso agli ambienti (probabilmente verrà utilizzato proprio Kuberneetes come API Gateway, piuttosto che introdurre un microservizio apposito e mantenere leggero l'ambiente di produzione).
-* **Produzione**: Utilizzo di Terraform per il provisioning del namespace di Produzione (`karateflow-prod`). Apertura della prima Pull Request formale su branch `main` per innescare il deploy stabile definitivo e configurazione dello **Stack PLG** per il monitoraggio dei log.
-
-
-### Fase 6: Todo...
+### Fase 5: Incremento Funzionale e Analisi Avanzata Performance (Pianificata)
+* **Business Intelligence**: Implementazione di dashboard per il monitoraggio storico delle performance e confronti tra atleti.
+* **Qualità e Sicurezza**: Integrazione controlli SonarQube e configurazione di Keycloak (RBAC) per la protezione degli accessi.
+* **Monitoraggio**: Configurazione dello stack PLG per la centralizzazione dei log in produzione.
