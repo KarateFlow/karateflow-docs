@@ -1,39 +1,38 @@
 # 📔 Diario di Bordo Fase 4: Sviluppo Funzionalità Core
 
 ## 📅 Dettagli della Fase
-**Stato**: 🏗️ In Corso
-**Obiettivo**: Sviluppo delle funzionalità core del sistema (Gestione Atleti e Sessioni di Test).
+- **Periodo**: Seconda settimana di Giugno 2026
+- **Stato**: In Corso
+- **Obiettivo**: Sviluppo delle funzionalità core dell'anagrafica e stabilizzazione dell'ecosistema CI/CD.
 
 ---
 
-## 🚀 Avanzamento Story 1 (KF-1)
+## 🚀 Riepilogo Avanzamento Epic 1: Gestione Anagrafica Atleti
 
-### Descrizione dell'Attività e Cambiamento di Scope
+L'attività della seconda settimana di giugno è stata dedicata al completamento delle prime tre User Story, segnando la chiusura della prima Epic di progetto. Il percorso è stato caratterizzato da una forte attività di risoluzione bug e miglioramento infrastrutturale.
 
-La Story 1, inizialmente stimata in 4 task lineari incentrati sulla scrittura del codice di persistenza e dei relativi test, ha subìto un'espansione programmata a 14 task complessivi. Questo incremento è stato necessario per isolare, tracciare e correggere una serie di blocker infrastrutturali emersi esclusivamente con il server di Continuous Integration (Jenkins).
+### 1. Story 1 (KF-1): Inserimento Nuovo Atleta e Blocker Infrastrutturali
+La prima storia ha richiesto un impegno significativamente superiore alle stime iniziali (espandendosi da 4 a 14 task). La causa principale è stata l'instabilità della pipeline Jenkins e dei test d'integrazione.
+*   **Correzioni**: È stato necessario isolare i conflitti di configurazione MongoDB, adeguare il backend a **Spring Boot 4.0.6** e risolvere i timeout dei container tramite la centralizzazione del context caching.
+*   **Standardizzazione**: Per prevenire regressioni e gestire la complessità crescente, sono stati introdotti **GitHub Issue & PR Templates** in tutti i repository, forzando checklist di validazione (test, lint, PMD) prima di ogni merge.
 
-### Analisi dei Problemi e Soluzioni Adottate
-Il completamento della storia ha richiesto una profonda attività di analisi (Troubleshooting) focalizzata su quattro aree critiche:
+### 2. Story 2 (KF-2): Visualizzazione Elenco e Dettaglio Profilo
+Implementata la navigazione completa e la visualizzazione granulare dei dati.
+*   **Innovazione**: Utilizzo delle nuove API **Resource di Angular 19** per la gestione del caricamento asincrono.
+*   **CI/CD**: Creata e stabilizzata la **Jenkins Pipeline per il Frontend**, integrata con le API di GitHub per la notifica automatica dello stato del commit direttamente nelle Pull Request.
 
-1.  **Disattivazione del Conflitto Statico**: Rimossa l'interferenza della classe legacy `MongoConfig` (che forzava la connessione a localhost:27017 con credenziali di amministrazione) durante la suite di test mediante l'applicazione mirata del profilo `@Profile("!test")`.
-2.  **Allineamento a Spring Boot 4.0.6**: Intercettato il cambiamento del dizionario delle proprietà del framework (rimozione del token intermedio `.data.`), adeguando il registro dinamico alle nuove chiavi `spring.mongodb.uri`.
-3.  **Ottimizzazione del Context Caching**: Risolto il conflitto di ciclo di vita tra JUnit 5 e Spring Boot (causa di timeout sistematici dovuti alla distruzione e ricreazione dei container Mongo tra classi di test diverse) mediante la centralizzazione di una classe base astratta ereditata.
-4.  **Risoluzione Blocker DinD (Docker-in-Docker) su Jenkins**: Isolato il fallimento del container di pulizia delle risorse (Ryuk), legato alla mancata comunicazione tra il container di Jenkins e il socket dell'host, stabilizzando l'ambiente CI.
+### 3. Story 3 (KF-3): Modifica Dati Atleta
+Chiusura del ciclo CRUD con la funzionalità di aggiornamento parziale.
+*   **Integrità**: Il sistema garantisce ora l'immutabilità di Nome, Cognome e Data di Nascita, permettendo la modifica solo di contatti e note mediche.
+*   **UX Personalizzata**: Sostituiti i dialoghi nativi del browser con un componente **ConfirmDialog custom**, garantendo un'esperienza utente moderna e accessibile.
 
-### Governance e Standardizzazione
-Per garantire un processo di sviluppo fluido e allineato agli standard di qualità del progetto, è stata introdotta una struttura di governance basata su template GitHub:
-- **Issue Templates**: Creati template specifici per `bug_report` e `feature_task` in tutti i repository (`be`, `fe`, `infra`), con metadati preconfigurati (labels, assignees) e strutture dedicate ai diversi ambiti tecnici (es. Clean Architecture per il Backend, UX/UI per il Frontend).
-- **Pull Request Templates**: Implementati template per le PR che forzano una checklist di validazione (test unitari, d'integrazione, linting e build) prima del merge.
-- **Workflow**: I template sono stati distribuiti tramite branch dedicati (`chore/governance-*`) per non interferire con il flusso di sviluppo delle feature correnti.
+---
 
-![Template PR funzionante](../images/template-PR.png)
-*Esempio del template di Pull Request applicato correttamente.*
-
-![Check Jenkins su branch](../images/Jenkins-check.png)
-*Validazione automatica di Jenkins sul branch di feature prima del merge.*
+## 🏁 Chiusura Epic 1
+Con la validazione finale dei test, dichiaro **chiusa la Epic [KF-EPIC-1]**. L'anagrafica atleti è ora solida, testata e pronta per l'uso operativo.
 
 ---
 
 ## ⏭️ Prossimi Passi
-*   Completamento della Story 1.
-*   Avvio dello sviluppo della Story 2 (Gestione Sessioni di Test).
+*   Apertura della **Epic [KF-EPIC-2]: Modulo Test Fisici e Performance**.
+*   Sviluppo della Story **KF-4**: Modellazione e registrazione delle sessioni di test (Test Execution).
