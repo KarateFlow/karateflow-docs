@@ -109,7 +109,26 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
     * *Rilascio*: Storico prestazioni atleta visibile in `karateflow-fe`.
 
 #### 1.5 Fase 4: Provisioning Infrastruttura
-*(Verrà dettagliata alla fine della Fase 3.)* 
+* **1.5.1 IaC Setup & Cluster Topology (WP 4.1)**
+  * **1.5.1.1 Governance del Cluster e IaC (Story: KF-EPIC-3-STORY-1)**
+    * 1.5.1.1.1 Bootstrap Raspberry Pi 5 OS e installazione cluster K3s (Task: KF-EPIC-3-STORY-1-TASK-1).
+    * 1.5.1.1.2 Setup del progetto e autenticazione del provider Kubernetes in Terraform (Task: KF-EPIC-3-STORY-1-TASK-2).
+    * 1.5.1.1.3 Provisioning dei namespace di staging e produzione tramite IaC (Task: KF-EPIC-3-STORY-1-TASK-3).
+    * 1.5.1.1.4 Definizione di quote per le risorse CPU e RAM (Task: KF-EPIC-3-STORY-1-TASK-4).
+  * **1.5.1.2 Manifesti Kubernetes e Topologia dello Storage Persistente (Story: KF-EPIC-3-STORY-2)**
+    * 1.5.1.2.1 Configurazione di un volume SSD isolato da 10GB per il local-path provider di K3s (Task: KF-EPIC-3-STORY-2-TASK-1).
+    * 1.5.1.2.2 Scrittura del manifesto di deployment stateful per MongoDB e PVC da 3GB (Task: KF-EPIC-3-STORY-2-TASK-2).
+    * 1.5.1.2.3 Scrittura del deployment e del servizio ClusterIP del backend (Task: KF-EPIC-3-STORY-2-TASK-3).
+    * 1.5.1.2.4 Scrittura del deployment e del servizio ClusterIP del frontend (Task: KF-EPIC-3-STORY-2-TASK-4).
+    * 1.5.1.2.5 Configurazione delle regole di Ingress Traefik per la risoluzione interna (Task: KF-EPIC-3-STORY-2-TASK-5).
+    * 1.5.1.2.6 Deploy del daemon Cloudflare Tunnel per accesso sicuro esterno in HTTPS (Task: KF-EPIC-3-STORY-2-TASK-6).
+
+* **1.5.2 Containerizzazione e Continuous Delivery (WP 4.2)**
+  * **1.5.2.1 Containerizzazione Immutabile e Profili Ambientali (Story: KF-EPIC-4-STORY-1)**
+    * *(Dettaglio dei task da definire alla fine del WP 4.1)*
+  * **1.5.2.2 Continuous Delivery Automatica via Jenkins (Story: KF-EPIC-4-STORY-2)**
+    * *(Dettaglio dei task da definire alla fine del WP 4.1)*
 
 #### 1.6 Fase 5: Incremento funzionale e Analisi avanzata performance
 *(Verrà dettagliata alla fine della Fase 4.)*
+
