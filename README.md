@@ -32,6 +32,10 @@ Il documento ufficiale che descrive:
 ### 📝 2. Diario di Bordo (Tracciamento delle varie fasi di sviluppo)
 La cronologia delle sessioni di sviluppo, i problemi riscontrati e il registro delle ottimizzazioni incrementali:
 * 📁 [Fase 0: Setup & Bootstrapping](./diario-di-bordo/01-setup.md)
+* 📁 [Fase 1: Skeleton & Automazione](./diario-di-bordo/02-skeleton-automazione.md)
+* 📁 [Fase 2: Analisi Funzionale e Raccolta dei Requisiti](./diario-di-bordo/03-analisi-funzionale-e-governance.md)
+* 📁 [Fase 3: Sviluppo Funzionalità Core (MVP)](./diario-di-bordo/04-sviluppo-funzionalità-core.md)
+* 📁 [Fase 4: Provisioning Infrastruttura](./diario-di-bordo/05-provisioning-infrastruttura.md)
 
 ---
 
