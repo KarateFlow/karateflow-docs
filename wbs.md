@@ -125,7 +125,15 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
 
 * **1.5.2 Containerizzazione e Continuous Delivery (WP 4.2)**
   * **1.5.2.1 Containerizzazione Immutabile e Profili Ambientali (Story: KF-EPIC-4-STORY-1)**
+    * 1.5.2.1.1 Configurazione dei profili e delle proprietà di ambiente per Spring Boot (Task: KF-EPIC-4-STORY-1-TASK-1).
+    * 1.5.2.1.2 Scrittura del Dockerfile multi-stage per il Backend Spring Boot (Task: KF-EPIC-4-STORY-1-TASK-2).
+    * 1.5.2.1.3 Configurazione dei file di ambiente Angular per lo staging (Task: KF-EPIC-4-STORY-1-TASK-3).
+    * 1.5.2.1.4 Scrittura del Dockerfile multi-stage per il Frontend Angular (Task: KF-EPIC-4-STORY-1-TASK-4).
   * **1.5.2.2 Continuous Delivery Automatica via Jenkins (Story: KF-EPIC-4-STORY-2)**
+    * 1.5.2.2.1 Deploy del Docker Registry locale su K3s e configurazione trust del demone locale (Task: KF-EPIC-4-STORY-2-TASK-1).
+    * 1.5.2.2.2 Configurazione delle credenziali Kubeconfig all'interno dell'istanza Jenkins locale (Task: KF-EPIC-4-STORY-2-TASK-2).
+    * 1.5.2.2.3 Estensione della pipeline del Backend con build Docker, push e rollout su Kubernetes (Task: KF-EPIC-4-STORY-2-TASK-3).
+    * 1.5.2.2.4 Estensione della pipeline del Frontend con build Docker, push e rollout su Kubernetes (Task: KF-EPIC-4-STORY-2-TASK-4).
 
 #### 1.6 Fase 5: Incremento funzionale e Analisi avanzata performance
 *(Verrà dettagliata alla fine della Fase 4.)*
