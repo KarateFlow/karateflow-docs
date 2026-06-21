@@ -82,10 +82,18 @@ Questa Epica ha l'obiettivo di colmare il divario tra lo sviluppo locale e autom
 *   **[KF-EPIC-4-STORY-1] Immutable Containerization & Environment Profiles** (Stato: 🟡 In Corso)
     *   *Obiettivo*: Creare Dockerfile multi-stage leggeri per Backend (con JRE minimale) e Frontend (servito da Nginx) eliminando credenziali o IP hardcoded.
     *   *Task definiti*:
+        *   [ ] `KF-EPIC-4-STORY-1-TASK-1`: `feat(be): [Config] setup Spring Boot environment profiles and properties`
+        *   [ ] `KF-EPIC-4-STORY-1-TASK-2`: `feat(infra): [Docker] write multi-stage Dockerfile for Spring Boot Backend`
+        *   [ ] `KF-EPIC-4-STORY-1-TASK-3`: `feat(fe): [Config] setup Angular environment configurations for staging`
+        *   [ ] `KF-EPIC-4-STORY-1-TASK-4`: `feat(infra): [Docker] write multi-stage Dockerfile for Angular Frontend`
 
 *   **[KF-EPIC-4-STORY-2] Automated Continuous Delivery (CD) via Jenkins** (Stato: 📅 Programmata)
     *   *Obiettivo*: Configurare un Docker Registry locale sul Raspberry Pi 5 e aggiornare le pipeline per compilare le immagini, pusharle sul registry ed eseguire il deploy su K3s (`kubectl apply`).
     *   *Task definiti*:
+        *   [ ] `KF-EPIC-4-STORY-2-TASK-1`: `feat(infra): [Docker] deploy local registry on K3s and configure local daemon trust`
+        *   [ ] `KF-EPIC-4-STORY-2-TASK-2`: `feat(infra): [Pipeline] inject Kubeconfig credentials into existing local Jenkins`
+        *   [ ] `KF-EPIC-4-STORY-2-TASK-3`: `feat(infra): [Pipeline] extend BE pipeline with Docker build, push and K8s rollout stages`
+        *   [ ] `KF-EPIC-4-STORY-2-TASK-4`: `feat(infra): [Pipeline] extend FE pipeline with Docker build, push and K8s rollout stages`
 
 ---
 
