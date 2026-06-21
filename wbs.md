@@ -125,9 +125,7 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
 
 * **1.5.2 Containerizzazione e Continuous Delivery (WP 4.2)**
   * **1.5.2.1 Containerizzazione Immutabile e Profili Ambientali (Story: KF-EPIC-4-STORY-1)**
-    * *(Dettaglio dei task da definire alla fine del WP 4.1)*
   * **1.5.2.2 Continuous Delivery Automatica via Jenkins (Story: KF-EPIC-4-STORY-2)**
-    * *(Dettaglio dei task da definire alla fine del WP 4.1)*
 
 #### 1.6 Fase 5: Incremento funzionale e Analisi avanzata performance
 *(Verrà dettagliata alla fine della Fase 4.)*
