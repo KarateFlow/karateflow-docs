@@ -2,7 +2,7 @@
 
 ## 📅 Dettagli della Fase
 * **Periodo**: Terza e Quarta settimana di Giugno 2026
-* **Stato**: 🟡 In Corso (KF-EPIC-3 Completata, KF-EPIC-4 da avviare)
+* **Stato**: ✅ Completata
 * **Obiettivo**: Provisioning dell'infrastruttura cloud-native (K3s) su Raspberry Pi 5 tramite IaC (Terraform), containerizzazione dei servizi ed estensione delle pipeline di CD su Jenkins.
 
 ---
@@ -17,12 +17,12 @@ Con la conclusione della prima Epica (**KF-EPIC-3**), abbiamo abilitato il clust
 Abbiamo formalizzato e caricato sulla bacheca di progetto:
 1. **2 Epiche di Progetto** legate a questa fase:
    * **`KF-EPIC-3`**: IaC Setup & Cluster Topology (Completata)
-   * **`KF-EPIC-4`**: Containerization & Continuous Delivery (In Corso)
+   * **`KF-EPIC-4`**: Containerization & Continuous Delivery (Completata)
 2. **4 User Story** (2 per ciascuna Epica):
    * **`KF-EPIC-3-STORY-1`**: Cloud-Native Cluster Governance via IaC (Completata)
    * **`KF-EPIC-3-STORY-2`**: Kubernetes Manifests & Persistent Storage Topology (Completata)
-   * **`KF-EPIC-4-STORY-1`**: Immutable Containerization & Environment Profiles (In Corso)
-   * **`KF-EPIC-4-STORY-2`**: Automated Continuous Delivery (CD) via Jenkins (Programmata)
+   * **`KF-EPIC-4-STORY-1`**: Immutable Containerization & Environment Profiles (Completata)
+   * **`KF-EPIC-4-STORY-2`**: Automated Continuous Delivery (CD) via Jenkins (Completata)
 
 ---
 
@@ -52,6 +52,26 @@ Di seguito viene mostrato lo screenshot della bacheca GitHub all'inizio della Fa
 
 ---
 
+## 🚀 Stato Avanzamento: Completamento KF-EPIC-4 & Rilascio in Staging
+
+Abbiamo concluso con successo tutti i compiti previsti per la seconda epica (**KF-EPIC-4**), chiudendo ufficialmente la Fase 4. La pipeline di Continuous Delivery (CD) è ora fully-operational ed effettua il deploy automatico degli applicativi containerizzati sull'ambiente di staging del cluster K3s.
+
+### Dettaglio dei Risultati Raggiunti:
+1. **Containerizzazione Immutabile & Profili Ambientali (`KF-EPIC-4-STORY-1`)**:
+   - Scritti Dockerfile multi-stage ottimizzati per garantire immagini immutabili e leggere: Spring Boot Backend (con JRE minimale) e Angular Frontend (servito tramite Nginx).
+   - Esternalizzate le configurazioni sensibili e gli endpoint tramite variabili d'ambiente e configurazione di profili Spring Boot (`staging`).
+   - Allineato il frontend Angular per la risoluzione dinamica delle chiamate API verso l'host di staging.
+2. **Continuous Delivery (CD) Automatizzata via Jenkins (`KF-EPIC-4-STORY-2`)**:
+   - Avviato e configurato un Docker Registry locale all'interno del cluster K3s su Raspberry Pi 5 per ospitare le immagini buildate.
+   - Integrata la configurazione di sicurezza `Kubeconfig` all'interno dell'istanza Jenkins locale per consentire all'orchestrazione delle pipeline di interagire con l'API server di K3s.
+   - Estese le pipeline CI/CD di Backend e Frontend con i nuovi stage di build delle immagini, push al registry locale del cluster e rollout automatico (`kubectl apply` e `kubectl rollout restart`) nei namespace configurati.
+
+### 🌐 Accesso all'Ambiente di Staging
+Grazie al completamento di queste attività, la piattaforma KarateFlow è ora raggiungibile in modalità protetta HTTPS al seguente indirizzo:
+👉 **[https://staging.karate-flow.com](https://staging.karate-flow.com)**
+
+---
+
 ## 🗺️ Dettaglio di Epiche e Stories
 
 ### 🌐 [KF-EPIC-3] IaC Setup & Cluster Topology (Stato: ✅ Completata)
@@ -76,24 +96,24 @@ Questa Epica ha l'obiettivo di automatizzare il provisioning dell'infrastruttura
 
 ---
 
-### 📦 [KF-EPIC-4] Containerization & Continuous Delivery (Stato: 🟡 In Corso)
+### 📦 [KF-EPIC-4] Containerization & Continuous Delivery (Stato: ✅ Completata)
 Questa Epica ha l'obiettivo di colmare il divario tra lo sviluppo locale e automatizzare l'intero ciclo di vita del rilascio software. Attraverso la Containerizzazione, si garantisce che il medesimo artefatto (immagine Docker) testato in locale possa girare senza alterazioni su K3s, governando le differenze ambientali esclusivamente tramite configurazioni di profilo (Staging vs Prod). Inoltre, l'estensione delle pipeline CI/CD introduce la Continuous Delivery, abbattendo il tempo di deploy ed eliminando l'intervento manuale post-merge.
 
-*   **[KF-EPIC-4-STORY-1] Immutable Containerization & Environment Profiles** (Stato: 🟡 In Corso)
+*   **[KF-EPIC-4-STORY-1] Immutable Containerization & Environment Profiles** (Stato: ✅ Completata)
     *   *Obiettivo*: Creare Dockerfile multi-stage leggeri per Backend (con JRE minimale) e Frontend (servito da Nginx) eliminando credenziali o IP hardcoded.
-    *   *Task definiti*:
-        *   [ ] `KF-EPIC-4-STORY-1-TASK-1`: `feat(be): [Config] setup Spring Boot environment profiles and properties`
-        *   [ ] `KF-EPIC-4-STORY-1-TASK-2`: `feat(infra): [Docker] write multi-stage Dockerfile for Spring Boot Backend`
-        *   [ ] `KF-EPIC-4-STORY-1-TASK-3`: `feat(fe): [Config] setup Angular environment configurations for staging`
-        *   [ ] `KF-EPIC-4-STORY-1-TASK-4`: `feat(infra): [Docker] write multi-stage Dockerfile for Angular Frontend`
+    *   *Task completati*:
+        *   [x] `KF-EPIC-4-STORY-1-TASK-1`: `feat(be): [Config] setup Spring Boot environment profiles and properties`
+        *   [x] `KF-EPIC-4-STORY-1-TASK-2`: `feat(infra): [Docker] write multi-stage Dockerfile for Spring Boot Backend`
+        *   [x] `KF-EPIC-4-STORY-1-TASK-3`: `feat(fe): [Config] setup Angular environment configurations for staging`
+        *   [x] `KF-EPIC-4-STORY-1-TASK-4`: `feat(infra): [Docker] write multi-stage Dockerfile for Angular Frontend`
 
-*   **[KF-EPIC-4-STORY-2] Automated Continuous Delivery (CD) via Jenkins** (Stato: 📅 Programmata)
+*   **[KF-EPIC-4-STORY-2] Automated Continuous Delivery (CD) via Jenkins** (Stato: ✅ Completata)
     *   *Obiettivo*: Configurare un Docker Registry locale sul Raspberry Pi 5 e aggiornare le pipeline per compilare le immagini, pusharle sul registry ed eseguire il deploy su K3s (`kubectl apply`).
-    *   *Task definiti*:
-        *   [ ] `KF-EPIC-4-STORY-2-TASK-1`: `feat(infra): [Docker] deploy local registry on K3s and configure local daemon trust`
-        *   [ ] `KF-EPIC-4-STORY-2-TASK-2`: `feat(infra): [Pipeline] inject Kubeconfig credentials into existing local Jenkins`
-        *   [ ] `KF-EPIC-4-STORY-2-TASK-3`: `feat(infra): [Pipeline] extend BE pipeline with Docker build, push and K8s rollout stages`
-        *   [ ] `KF-EPIC-4-STORY-2-TASK-4`: `feat(infra): [Pipeline] extend FE pipeline with Docker build, push and K8s rollout stages`
+    *   *Task completati*:
+        *   [x] `KF-EPIC-4-STORY-2-TASK-1`: `feat(infra): [Docker] deploy local registry on K3s and configure local daemon trust`
+        *   [x] `KF-EPIC-4-STORY-2-TASK-2`: `feat(infra): [Pipeline] inject Kubeconfig credentials into existing local Jenkins`
+        *   [x] `KF-EPIC-4-STORY-2-TASK-3`: `feat(infra): [Pipeline] extend BE pipeline with Docker build, push and K8s rollout stages`
+        *   [x] `KF-EPIC-4-STORY-2-TASK-4`: `feat(infra): [Pipeline] extend FE pipeline with Docker build, push and K8s rollout stages`
 
 ---
 
@@ -106,4 +126,17 @@ Questa Epica ha l'obiettivo di colmare il divario tra lo sviluppo locale e autom
 *   **Adozione del Cloudflare Tunnel e Dominio karate-flow.com**: Invece di aprire porte sul router locale ed esporre l'IP di casa o usare Dynamic DNS instabili, si è scelto di configurare un tunnel HTTPS gestito da Cloudflare. Questo garantisce sicurezza end-to-end e, tramite l'acquisto del dominio `karate-flow.com`, offre un accesso remoto semplice, robusto e dall'aspetto professionale.
 
 ---
+
+## 🏁 Chiusura Fase 4: Continuous Delivery & Staging
+Con il rilascio automatico in staging e il completo isolamento dell'infrastruttura di deploy, dichiariamo conclusa la **Fase 4**. Tutti gli obiettivi previsti per l'automazione DevOps iniziale sono stati raggiunti, permettendo ora uno sviluppo rapido e sicuro per i successivi incrementi di business logica.
+
+---
+
+## ⏭️ Prossimi Passi
+*   **Fase 5: Incremento Funzionale e Analisi Avanzata Performance**.
+    *   Sviluppo di dashboard storiche di performance per il monitoraggio atletico e confronti complessi.
+    *   Integrazione di SonarQube nelle pipeline per l'analisi statica di sicurezza e qualità.
+    *   Configurazione di Keycloak per la gestione RBAC avanzata degli utenti.
+    *   Provisioning dello stack PLG (Promtail, Loki, Grafana) per la centralizzazione dei log in produzione.
+    *   Miglioramento interfaccia web
 
