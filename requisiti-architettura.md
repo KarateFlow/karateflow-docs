@@ -80,12 +80,9 @@ L'implementazione segue un approccio orientato alle feature (vertical slices), g
 * **WP 3.2: Consultazione e Aggiornamento**: API di lettura/update e componenti UI per la visualizzazione tabellare e la modifica del profilo atleta.
 * **WP 3.3: Modulo Test Prestazionali**: Modellazione delle sessioni di test, API di registrazione performance e interfaccia di acquisizione dati multi-esercizio.
 
-### Fase 4: Provisioning Infrastruttura (Pianificata)
+### Fase 4: Provisioning Infrastruttura (Completata)
 * **IaC**: Utilizzo di Terraform per il provisioning del cluster K3s su Raspberry Pi 5.
-* **CI/CD**: Estensione pipeline per containerizzazione (Docker) e deploy automatico in ambiente di Staging.
+* **CI/CD**: Estensione pipeline per containerizzazione (Docker) e deploy automatico in ambiente di Staging (https://staging.karate-flow.com).
 * **Ambienti**: Configurazione dei namespace di Staging e Produzione con isolamento delle risorse e quote hardware.
 
-### Fase 5: Incremento Funzionale e Analisi Avanzata Performance (Pianificata)
-* **Business Intelligence**: Implementazione di dashboard per il monitoraggio storico delle performance e confronti tra atleti.
-* **Qualità e Sicurezza**: Integrazione controlli SonarQube e configurazione di Keycloak (RBAC) per la protezione degli accessi.
-* **Monitoraggio**: Configurazione dello stack PLG per la centralizzazione dei log in produzione.
+### Fase 5: Incremento Funzionale e Miglioramento interfaccia web
