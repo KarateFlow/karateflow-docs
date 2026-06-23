@@ -1,0 +1,615 @@
+\documentclass[aspectratio=169, 10pt]{beamer}
+\usetheme{Madrid}
+
+% --- Lingua e Pacchetti Base ---
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+\usetikzlibrary{shapes,arrows,positioning}
+
+% --- Personalizzazione dei Colori (Tema KarateFlow) ---
+% Colori ispirati al Karate (Rosso cintura, Antracite profondo della divisa/tatami)
+\definecolor{karateRed}{HTML}{D90429}
+\definecolor{karateDark}{HTML}{2B2D42}
+\definecolor{karateLightDark}{HTML}{1F2421}
+\definecolor{karateGray}{HTML}{F8F9FA}
+\definecolor{karateAccent}{HTML}{8D99AE}
+
+% Configurazione dei colori di Beamer
+\setbeamercolor{palette primary}{bg=karateDark, fg=white}
+\setbeamercolor{palette secondary}{bg=karateRed, fg=white}
+\setbeamercolor{palette tertiary}{bg=karateLightDark, fg=white}
+\setbeamercolor{palette quaternary}{bg=karateDark, fg=white}
+\setbeamercolor{structure}{fg=karateRed}
+\setbeamercolor{titlelike}{parent=palette primary}
+\setbeamercolor{block title}{bg=karateDark, fg=white}
+\setbeamercolor{block body}{bg=karateGray, fg=black}
+
+% --- Modifiche di Stile ---
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+
+% Customizzare il piè di pagina (footer) per un look più pulito
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor~~(\insertshortinstitute)
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% --- Dettagli del Titolo ---
+\title[KarateFlow]{KarateFlow}
+\subtitle{Gestione e Tracciamento delle Performance Atletiche nel Karate}
+\author[Simone Ingenito]{Simone Ingenito}
+\institute[SPME]{Corso di Software Project Management and Evolution}
+\date[Giugno 2026]{23 Giugno 2026}
+
+\titlegraphic{\includegraphics[width=2.5cm]{images/Karate-flow-logo.png}}
+
+\begin{document}
+
+% Slide 1: Titolo
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% Slide 2: Contesto
+\begin{frame}{1. Il Contesto di Riferimento}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \textbf{Il Problema delle Associazioni Sportive:}
+      \begin{itemize}
+        \item Mancanza di strumenti digitali per tracciare la crescita atletica.
+        \item Performance registrate su fogli cartacei disordinati.
+        \item Difficoltà nel confrontare storicamente le performance degli atleti.
+      \end{itemize}
+      \vspace{0.3cm}
+      \textbf{L'Esigenza Specifica:}
+      \begin{itemize}
+        \item Fornire al preparatore e ai coach uno storico centralizzato.
+        \item Tracciare periodicamente parametri fisici e tecnici reali.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \begin{tcolorbox}[colback=karateRed!10, colframe=karateRed, title=Inquadramento]
+        Digitalizzazione e automazione dei flussi di lavoro in un'associazione sportiva locale per migliorare la gestione quotidiana degli atleti sul tatami.
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 3: Motivazioni
+\begin{frame}{1. Le Motivazioni del Progetto}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \textbf{La Soluzione: KarateFlow}
+      \begin{itemize}
+        \item Web App dedicata per inserimento rapido dei test atletici periodici.
+        \item Centralizzazione dell'anagrafica atleti e registrazione dei test.
+        \item Confronto e misurazione delle prestazioni.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \begin{tcolorbox}[colback=karateRed!10, colframe=karateRed, title=Obiettivo Primario]
+        Creare una piattaforma su misura per il mio team di karate, mantenendo i costi bassi.
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+    % Slide: Studente Atleta                                                                                                           
+    \begin{frame}{1. Note sull'Autore: Studente e Atleta}                                                                            
+      \begin{columns}                                                                                                                     
+        \begin{column}{0.5\textwidth}
+          \textbf{La Doppia Carriera:}
+          \begin{itemize}
+            \item Coniugare lo studio accademico in Informatica con la pratica agonistica del Karate.
+            \item Membro del programma \href{https://atletafedericiano.unina.it/}{Atleta Federiciano}  presso l'Università degli Studi di Napoli Federico II.
+            \item Road to \textbf{EUSA Championships}, Tirana Settembre 2026.     
+          \end{itemize}
+          \vspace{0.3cm}
+          \textbf{Il Collegamento con KarateFlow:}
+          \begin{itemize}
+            \item Il software nasce da un'esigenza personale e del mio team di karate.
+          \end{itemize}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+          \centering
+          \begin{minipage}{0.48\linewidth}
+            \centering
+            \includegraphics[height=3.8cm, width=\linewidth, keepaspectratio]{images/CNU-2026.jpg}\\
+            \vspace{0.1cm}
+            \tiny{Campionati Nazionali Universitari, Maggio 2026}
+          \end{minipage}
+          \hfill
+          \begin{minipage}{0.48\linewidth}
+            \centering
+            \includegraphics[height=3.8cm, width=\linewidth, keepaspectratio]{images/atleta-federiciano.jpg}\\
+            \vspace{0.1cm}
+            \tiny{Programma Atleta Federiciano}
+          \end{minipage}
+        \end{column}
+      \end{columns}
+    \end{frame}
+
+% Slide 4: Perché SPME?
+\begin{frame}{2. Perché è stato scelto come progetto SPME?}
+  Il corso di \emph{Software Project Management and Evolution} richiede di unire la gestione organizzativa allo sviluppo software moderno.
+  \vspace{0.4cm}
+  \begin{columns}
+    \begin{column}{0.31\textwidth}
+      \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=1. Metodologie DevOps, height=4.5cm]
+        Sperimentare lo sviluppo software con metodologie DevOps.
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.31\textwidth}
+      \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=2. Project Management, height=4.5cm]
+        Fare pratica come Project Manager nel contesto dello sviluppo software.
+      \end{tcolorbox}
+    \end{column}
+    \begin{column}{0.31\textwidth}
+      \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=3. Traceability, height=4.5cm]
+        Fare pratica della gestione del progetto software tramite Ticketing, garantendo il collegamento bidirezionale tra i requisiti e il codice. 
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 5: Il Mio Team: IA come Co-pilota
+\begin{frame}{3. Il Mio Team: Sviluppo Assistito da IA}
+  Lavorando come \textbf{unico sviluppatore}, ho massimizzato l'efficienza utilizzando \textbf{Gemini} come agente per la scrittura rapida del codice, interpretando diversi ruoli:
+  \vspace{0.2cm}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{I Ruoli Simulati dall'Agente}
+        \begin{itemize}
+          \item \textbf{Backend Engineer:} Scrittura del codice Spring Boot e modellazione del DB.
+          \item \textbf{Frontend Engineer:} Sviluppo dei componenti Angular responsive.
+          \item \textbf{DevOps Specialist:} Supporto alla definizione delle pipeline Jenkins, setup di Terraform e Kubernetes.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Benefici \& Metodologia}
+        \begin{itemize}
+          \item \textbf{Velocità:} Sviluppo di scheletri strutturali in pochi minuti.
+          \item \textbf{Qualità:} Riduzione dei bug logici grazie a prompt orientati ai test di unità.
+          \item \textbf{Rigore:} Prima di ogni modifica remota, il codice è stato sottoposto ad analisi assicurando standard di qualità eccellenti.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \begin{itemize}
+  \vspace{0.2cm}
+      \item Nota: Ho riscattato il piano pro ad un prezzo molto conveniente (2 euro al mese per tre mesi) e cosi ho potuto simulare lo sviluppo software di un team ben strutturato, concentrandomi sul ruolo di PM.
+  \end{itemize}
+\end{frame}
+
+% Slide 6: Architettura a blocchi
+\begin{frame}{4. Architettura e Stack Tecnologico}
+  \begin{center}
+    \begin{tikzpicture}[
+      node distance=1.2cm and 1cm,
+      box/.style={draw, rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=karateGray, font=\footnotesize},
+      accentbox/.style={draw=karateRed, rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=karateRed!10, font=\footnotesize},
+      arrow/.style={-latex, thick}
+    ]
+      % Nodes
+      \node[box] (fe) {\textbf{Frontend (Angular)}\\SPA Statica (Nginx)};
+      \node[box, right=of fe] (be) {\textbf{Backend (Spring Boot)}\\REST API};
+      \node[box, right=of be] (db) {\textbf{Database (MongoDB)}\\Dati Flessibili NoSQL};
+      \node[accentbox, below=of be] (k3s) {\textbf{Cluster K3s}\\Raspberry Pi 5 Host (Staging \& Prod)};
+      \node[box, left=of k3s] (infra) {\textbf{IaC (Terraform)}\\Definizione Limiti/Namespace};
+      \node[box, right=of k3s] (tunnel) {\textbf{Cloudflare Tunnel}\\Connettività HTTPS Sicura};
+
+      % Arrows
+      \draw[arrow] (fe) -- (be);
+      \draw[arrow] (be) -- (db);
+      \draw[arrow] (infra) -- (k3s);
+      \draw[arrow] (k3s) -- (tunnel);
+      \draw[arrow] (fe) .. controls +(down:1) and +(left:0.5) .. (k3s);
+      \draw[arrow] (be) -- (k3s);
+    \end{tikzpicture}
+  \end{center}
+  \vspace{0.2cm}
+  \centering
+  \scriptsize{L'architettura multi-repository si basa su servizi isolati ed integrati in un cluster kubernetes.}
+\end{frame}
+
+% Slide 7: Hosting e Vincoli Fisici
+\begin{frame}{4. Hosting e Vincoli Fisici}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \textbf{L'Hosting su Raspberry Pi 5:}
+      \begin{itemize}
+        \item Consumi ridotti al minimo per azzerare i costi dell'hosting in cloud.
+        \item Ideale per una piccola realtà sportiva locale.
+        \item \alert{I Vincoli Hardware:} Risorse RAM e CPU estremamente limitate.
+      \end{itemize}
+      \vspace{0.3cm}
+      \textbf{Trade-off e Ottimizzazioni di Stack:}
+      \begin{itemize}
+        \item Compilazione statica in Angular (servita via Nginx) per minimizzare la memoria RAM occupata in esecuzione.
+        \item Uso di container leggeri privi di componenti non necessari.
+        \item Resource limits configurati rigidamente per evitare memory leak distruttivi per l'host.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=Specifiche Host]
+        \textbf{Hardware:} Raspberry Pi 5\\
+        \textbf{RAM:} 8 GB\\
+        \textbf{Storage:} SSD USB 3.0\\
+        \textbf{OS:} Raspberry Pi OS (Debian 12 Bookworm)\\
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 8: IaC e Orchestrazione (Terraform e Kubernetes)
+\begin{frame}{5. IaC e Orchestrazione (Terraform + K3s)}
+  \begin{columns}
+    \begin{column}{0.52\textwidth}
+      \textbf{Virtualizzazione Leggera con K3s:}
+      \begin{itemize}
+        \item Distribuzione Kubernetes ottimizzata per IoT ed Edge Computing.
+        \item Consumo di memoria ridotto per il Control Plane.
+      \end{itemize}
+      \vspace{0.3cm}
+      \textbf{Il Ruolo Centrale di Terraform (IaC):}
+      \begin{itemize}
+        \item Configurazione programmatica dei namespace (\texttt{stg} e \texttt{prod}).
+        \item Definizione di \alert{Resource Quotas} rigide (limiti CPU/RAM) per isolare gli ambienti e prevenire il crash totale del server domestico.
+        \item \textbf{Disaster Recovery:} Ricreazione totale del cluster in poco tempo in caso di guasti.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=Resource Isolation Framework, left=1mm, right=1mm, top=1mm, bottom=1mm]
+        \centering
+        \scriptsize
+        \resizebox{\linewidth}{!}{
+          \begin{tabular}{lcc}
+            \toprule
+            \textbf{Namespace} & \textbf{CPU Limit} & \textbf{RAM Limit} \\
+            \midrule
+            \texttt{karateflow-stg} & 1.5 Cores & 2.0 GB \\
+            \texttt{karateflow-prod} & 2.5 Cores & 3.5 GB \\
+            \bottomrule
+          \end{tabular}
+        }
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 9: Navigazione dei Repository
+\begin{frame}{6. Navigazione del Repository di Documentazione}
+    
+    Ho creato un'organizzazione Github che racchiude tutto: \url{https://github.com/KarateFlow}.
+
+  \vspace{0.2cm}
+  Il repository \textbf{\texttt{karateflow-docs}} funge da cabina di regia del progetto e archivio di tutte le scelte fatte e dei progressi raggiunti step-by-step:
+  \vspace{0.4cm}
+
+      \begin{itemize}
+        \item \textbf{\texttt{requisiti-architettura.md}:} Contiene i vincoli del Raspberry Pi 5 e la roadmap evolutiva di alto livello.
+        \item \textbf{\texttt{branching-strategy.md}:} Definisce lo sviluppo basato su Trunk-Based Development.
+        \item \textbf{\texttt{guida-tracciabilità.md}:} In cui spiego l'approccio utilizzato per la gestione della board e dei Ticket.
+        \item \textbf{\texttt{wbs.md}:} Traccia l'elenco gerarchico dei Work Packages, che sono tradotti in EPICHE.
+        \item \textbf{Cartella \texttt{diario-di-bordo/}:} File markdown incrementali che descrivono l'andamento del progetto e le decisioni prese in ogni singola fase.
+      \end{itemize}
+
+\end{frame}
+
+% Slide 10: Struttura dei Repository BE e FE
+\begin{frame}{7. Uno Sguardo alle Repository di Backend e Frontend}
+  La struttura delle repository è stata pensata per massimizzare la leggibilità e ottimizzare il contesto dei modelli di IA. 
+  \vspace{0.3cm}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Backend: Spring Boot (\texttt{karateflow-be})}
+        \begin{itemize}
+          \item \textbf{Architettura Esagonale (Ports \& Adapters):}
+          \item Core Domain (\emph{model} e \emph{port}) slegato da librerie esterne.
+          \item Logica applicativa orchestrata da \emph{usecase}.
+          \item Persistenza (MongoDB Adapter) e Controller Web come \emph{adattatori} esterni intercambiabili.
+          \item Alta testabilità con test unitari e d'integrazione indipendenti.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Frontend: Angular (\texttt{karateflow-fe})}
+        \begin{itemize}
+          \item Single Page Application organizzata in moduli feature.
+          \item Utilizzo di componenti riutilizzabili e puliti, privi di logica di business.
+          \item Separazione netta tra UI e Business Logic. Posso cambiare totalmente interfaccia senza "rompere" l'applicazione.
+          \item Compilazione statica e servita tramite Nginx per minimizzare il consumo di RAM del server.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 11: Repository di Infra e Automazione CI/CD
+\begin{frame}{8. Repository di Infra e Pipeline CI/CD}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{La Pipeline DevOps con Jenkins:}
+      \begin{itemize}
+        \item Jenkins è installato sulla \alert{macchina di sviluppo locale} (non sul Raspberry Pi 5) per evitare overhead di CPU e RAM.
+        \item Trigger di build configurati tramite polling Git o esecuzione manuale.
+        \item \textbf{Dockerizzazione Immutabile:} Dockerfile multi-stage che compilano il sorgente ed esportano immagini JRE/Nginx minime e sicure.
+        \item \textbf{Integrazione con GitHub Status Checks:} Jenkins "avvisa" GitHub dell'esito dei test, inibendo il merge delle Pull Request in caso di build fallite.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Pipeline Status}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/Jenkins-check.png}\\
+        \vspace{0.1cm}
+        \scriptsize{Pipeline Jenkins per la validazione statica (PMD/ESLint), la compilazione dei test e il build delle immagini Docker.}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 12: Tracciabilità dei Requisiti
+\begin{frame}{9. Tracciabilità dei Requisiti}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Flusso di Tracciabilità Bidirezionale:}
+      \begin{enumerate}
+        \item I requisiti vengono tradotti in EPIC/STORY e aggiunte alla Kanban Board. 
+        \item Le Stories contengono scenari scritti in formato \textbf{BDD (Given-When-Then)}.
+        \item Il branch di sviluppo viene creato e collegato alla issue presente sulla board (Task o Bug).
+        \item La Pull Request verso \texttt{main} chiude l'issue tramite Closing Keyword (\texttt{Closes \#12}) sul server.
+        \item Nessun frammento di codice viene inserito senza una motivazione di business documentata.
+      \end{enumerate}
+
+    \end{column}
+    \begin{column}{0.34\textwidth}
+      \begin{block}{Esempio di PR}
+        \centering
+        \includegraphics[width=0.7\textwidth]{images/template-PR.png}\\
+        \vspace{0.1cm}
+        \scriptsize{Collegamento bidirezionale tra Pull Request e Issue.}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 13: GitHub Projects vs Jira
+\begin{frame}{9. Governance e Tracciamento: GitHub Projects vs Jira}
+ 
+  \vspace{0.3cm}
+  \begin{columns}
+    \begin{column}{0.95\textwidth}
+      \begin{tcolorbox}[colback=karateGray, colframe=karateDark, title=Confronto Strumenti di Project Management]
+        \centering
+        \small
+        \resizebox{\linewidth}{!}{
+          \begin{tabular}{lll}
+            \toprule
+            \textbf{Caratteristica} & \textbf{GitHub Projects} & \textbf{Jira Software} \\
+            \midrule
+            \textbf{Integrazione Git} & Nativa e immediata & Tramite plugin esterni \\
+            \textbf{Overhead Amministrativo} & Minimo & Elevato (config. workflow) \\
+            \textbf{Tracciabilità Ticket-Codice} & Automatica (issue $\leftrightarrow$ branch $\leftrightarrow$ PR) & Richiede inserimento manuale ID \\
+            \textbf{Adatto per} & Sviluppatore singolo o piccoli team & Grandi aziende e team complessi \\
+            \bottomrule
+          \end{tabular}
+        }
+      \end{tcolorbox}
+      \vspace{0.2cm}
+      \textbf{Perché GitHub Projects?}
+      \begin{itemize}
+        \item Per KarateFlow, Jira avrebbe introdotto un overhead amministrativo inutile.
+        \item L'integrazione nativa permette di collegare facilmente ticket e codice.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 14: Prima Fase di Sviluppo e Gestione Task
+\begin{frame}{10. Metodologia e Prima Fase di Sviluppo}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Punti di Forza Metodologici:}
+      \begin{itemize}
+        \item \textbf{Trunk-Based Development:} Rilasci continui sul branch \texttt{main} (allineato all'ambiente di Staging).
+        \item \textbf{Conventional Commits:} Standardizzazione dei messaggi Git (\texttt{feat}, \texttt{chore}, \texttt{docs}, \texttt{devops}).
+        \item \textbf{Rimozione delle Stime Orarie:} Per non introdurre un overhead amministrativo inutile per un singolo sviluppatore, ci si è concentrati sull'atomicità dei task (tutti dimensionati tra le 2 e le 4 ore di lavoro ideale).
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Stato della Kanban Board (inizio fase 4)}
+        \centering
+        \includegraphics[width=0.9\textwidth]{images/board-inizio-fase-4.png}\\
+        \vspace{0.1cm}
+        \scriptsize{La Kanban Board di GitHub all'inizio della Fase 4 prima dello sviluppo dei task di automazione.}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 15: Retrosettiva Fase 3: Difficoltà e Soluzioni
+\begin{frame}{10. Retrosettiva Fase 3: Difficoltà e Soluzioni}
+  Durante la fase di sviluppo core (MVP) sono emerse alcune inefficienze operative:
+  \vspace{0.3cm}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Le Difficoltà Riscontrate}
+        \begin{itemize}
+          \item \textbf{Story Mismatch / Scope Creep:} Alcune User Story si sono allargate a dismisura e hanno superato il loro scope, a causa di pipeline CI/CD configurate male o incomplete che ritardavano il feedback.
+          \item \textbf{Inconsistenza dei Task:} I nomi dei task e dei commit su Git non erano uniformi perché gestiti manualmente a mente sul portale.
+          \item \textbf{Inconsistenza delle PR:} Inizialmente scrivevo ogni PR manualmente e la struttura delle varie PR era inconsistente.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Le Soluzioni Introdotte}
+        \begin{itemize}
+          \item \textbf{Issue Templates:} Standardizzazione rigida della creazione di Task, Bug e Requisiti in formato BDD.
+          \item \textbf{Pull Request Templates:} Standardizzazione del formato di una PR con descrizione delle modifiche, test eseguiti, possibile immagine se prevista e sezione di tracciabilità con chiusura automatica del TASK associato.
+          \item \textbf{Integrazione Branch-Issue:} I branch di sviluppo vengono eliminati una volta effettuata la PR.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 16: Jump-off alla fine della fase 4
+\begin{frame}{11. Jump-off alla Fine della Fase 4 (Milestone Staging)}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Stato dell'Infrastruttura Raggiunto:}
+      \begin{itemize}
+        \item Provisioning del cluster K3s su Raspberry Pi 5 completato tramite Terraform.
+        \item Isolamento completo degli ambienti tramite namespace e quote.
+        \item Pipeline CI/CD di Jenkins operative ed automatizzate al 100\% post-merge.
+      \end{itemize}
+      \vspace{0.3cm}
+      \textbf{Accesso Remoto e Sicurezza:}
+      \begin{itemize}
+        \item Utilizzo di un \alert{Cloudflare Tunnel} (\texttt{cloudflared}) nel cluster: comunicazione crittografata senza fare Port Forwarding sul router di casa.
+        \item Registrazione e collegamento del dominio di proprietà: \texttt{karate-flow.com}.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{tcolorbox}[colback=karateRed!10, colframe=karateRed, title=Staging Online]
+        L'applicazione in ambiente di staging è ora accessibile pubblicamente tramite connessione sicura HTTPS al link:
+        \vspace{0.3cm}
+        \centering
+        \textbf{\url{https://staging.karate-flow.com}}
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 17: La Fase 5: Nuove EPIC
+\begin{frame}{12. La Fase 5: Le Nuove EPIC (Sviluppi in Staging)}
+  Completate le fondamenta infrastrutturali, il progetto prevede l'implementazione di nuove funzionalità di governance, sicurezza, monitoraggio e miglioramento dell'interfaccia utente.
+  \vspace{0.3cm}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Autenticazione \& Sicurezza (Keycloak)}
+        \begin{itemize}
+          \item Integrazione di Keycloak nel cluster K3s per gestire l'autenticazione centralizzata.
+          \item Definizione di ruoli RBAC (Role-Based Access Control) per Coach, Atleta e Admin.
+        \end{itemize}
+      \end{block}
+      \begin{block}{Qualità del Codice (SonarQube)}
+        \begin{itemize}
+          \item Integrazione di SonarQube nelle pipeline di Jenkins per il controllo statico della qualità e delle vulnerabilità di sicurezza.
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Monitoraggio \& Log (Stack PLG)}
+        \begin{itemize}
+          \item Installazione di Promtail, Loki e Grafana (PLG Stack) su K3s.
+          \item Centralizzazione dei log dei pod di backend, frontend e database per semplificare il debug in produzione.
+        \end{itemize}
+      \end{block}
+      \begin{block}{Miglioramenti UI/UX}
+        \begin{itemize}
+          \item Refactoring dell'interfaccia Angular per una dashboard atletica avanzata e visualizzazione di grafici storici.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 18: La Fase 6: Messa in Produzione
+\begin{frame}{13. La Fase 6: Messa in Produzione}
+  L'ultimo step prevede il rilascio stabile in ambiente di produzione e l'utilizzo del software da parte degli utenti finali.  
+  \vspace{0.4cm}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Strategia di Release:}
+      \begin{itemize}
+        \item Deployment nel namespace \texttt{karateflow-prod} del cluster K3s locale.
+        \item Promozione del codice tramite Tag Git (es. \texttt{v1.0.0}) anziché push continuo.
+        \item Isolamento hardware completo gestito tramite le quote Terraform.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Attività Chiave di Produzione}
+        \begin{itemize}
+          \item \textbf{Load Testing:} Validare il comportamento del Raspberry Pi 5 sotto stress di rete.
+          \item \textbf{Dati Reali:} Importazione dell'anagrafica e dei test del team.
+          \item \textbf{SSL e DNS:} Routing del dominio principale (\url{https://karate-flow.com}) verso l'ambiente di produzione.
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 19: Sviluppi Futuri
+\begin{frame}{14. Sviluppi Futuri}
+ La piattaforma KarateFlow è predisposta per un'espansione e miglioramento continuo:
+  \vspace{0.4cm}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=1. Migrazione Cloud Semplificata, height=4.5cm]
+        Grazie all'infrastruttura interamente dichiarata in Terraform e manifesti Kubernetes, è possibile migrare l'intera piattaforma su un cloud provider (AWS, GCP o altri) con facilità senza riscrivere configurazioni hardware.
+      \end{tcolorbox}
+    \end{column}
+    
+         \begin{column}{0.48\textwidth}
+          \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=2. Monetizzazione Futura (SaaS), height=4.5cm]
+            \begin{itemize}
+              \item Modello \textbf{SaaS} da vendere a potenziali clienti nell'ambito sportivo. 
+              \item Piani di Abbonamento con funzionalità differenziate.
+              \item Payment Gateway con gestione fatturazioni ricorrenti e pagamenti automatici.
+            \end{itemize}
+          \end{tcolorbox}
+        \end{column}
+    
+  \end{columns}
+\end{frame}
+
+% Slide 20: Conclusione
+\begin{frame}{15. Conclusione}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \textbf{Risultati Raggiunti:}
+      \begin{itemize}
+        \item Realizzazione di una piattaforma web completa ed operante in staging.
+        \item Applicazione delle metodologie DevOps e di Project Management.
+        \item Tracciabilità bidirezionale implementata (con qualche errore iniziale).
+      \end{itemize}
+      \vspace{0.3cm}
+      \textbf{Cosa ho imparato:}
+      \begin{itemize}
+        \item Metodologia DevOps, rilascio continuo di nuove funzionalità software. 
+        \item Utilizzo di Infrastructure as Code (Terraform) e Orchestrazione dei container (Kubernetes).
+        \item Utilizzo di strumenti AI per lo sviluppo di codice.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \begin{tcolorbox}[colback=karateDark, colframe=karateDark, title=\color{white}Grazie per l'Attenzione]
+        \color{white}
+        \centering
+        \vspace{0.5cm}
+        \textbf{Domande?}
+        \vspace{0.8cm}
+      \end{tcolorbox}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\end{document}
