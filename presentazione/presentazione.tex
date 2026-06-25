@@ -445,8 +445,8 @@
   \end{columns}
 \end{frame}
 
-% Slide 15: Retrosettiva Fase 3: Difficoltà e Soluzioni
-\begin{frame}{10. Retrosettiva Fase 3: Difficoltà e Soluzioni}
+% Slide 15: Retrospettiva Fase 3: Difficoltà e Soluzioni
+\begin{frame}{10. Retrospettiva Fase 3: Difficoltà e Soluzioni}
   Durante la fase di sviluppo core (MVP) sono emerse alcune inefficienze operative:
   \vspace{0.3cm}
   \begin{columns}
@@ -511,9 +511,10 @@
           \item Definizione di ruoli RBAC (Role-Based Access Control) per Coach, Atleta e Admin.
         \end{itemize}
       \end{block}
-      \begin{block}{Qualità del Codice (SonarQube)}
+      \begin{block}{Sviluppo e Integrazione Nuove Funzionalità}
         \begin{itemize}
-          \item Integrazione di SonarQube nelle pipeline di Jenkins per il controllo statico della qualità e delle vulnerabilità di sicurezza.
+          \item Aggiunta della gestione dei template dei test per inserimento veloce.
+          \item Implementazione del confronto storico e comparativo tra i test eseguiti.
         \end{itemize}
       \end{block}
     \end{column}
@@ -526,14 +527,41 @@
       \end{block}
       \begin{block}{Miglioramenti UI/UX}
         \begin{itemize}
-          \item Refactoring dell'interfaccia Angular per una dashboard atletica avanzata e visualizzazione di grafici storici.
+          \item Refactoring dell'interfaccia Angular per una dashboard avanzata e visualizzazione di grafici storici.
         \end{itemize}
       \end{block}
     \end{column}
   \end{columns}
 \end{frame}
 
-% Slide 18: La Fase 6: Messa in Produzione
+% Slide 18: Qualità del Codice e Disaccoppiamento Pipeline
+\begin{frame}{12. Qualità del Codice e Disaccoppiamento Pipeline}
+  \begin{columns}
+    \begin{column}{0.52\textwidth}
+      \textbf{Disaccoppiamento delle Pipeline (CI/CD):}
+      \begin{itemize}
+        \item Scomposti i flussi in pipeline \textbf{CI} (test, compilazione, qualità) e \textbf{CD} (build Docker e deploy).
+        \item Feedback più rapido sulle Pull Request ed eliminazione di build Docker non necessarie su K3s.
+      \end{itemize}
+      \vspace{0.2cm}
+      \textbf{Setup di SonarQube su K3s:}
+      \begin{itemize}
+        \item Server SonarQube e database PostgreSQL dedicato per la persistenza dello storico.
+        \item Integrazione di \textbf{JaCoCo} (BE) e \textbf{Vitest} (FE) per il tracciamento della code coverage.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \begin{block}{Dashboard SonarQube}
+        \centering
+        \includegraphics[width=\textwidth]{images/sonar-dashboard.png}\\
+        \vspace{0.1cm}
+        \scriptsize{Analisi della qualità statica e superamento del Quality Gate.}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 19: La Fase 6: Messa in Produzione
 \begin{frame}{13. La Fase 6: Messa in Produzione}
   L'ultimo step prevede il rilascio stabile in ambiente di produzione e l'utilizzo del software da parte degli utenti finali.  
   \vspace{0.4cm}
@@ -558,7 +586,7 @@
   \end{columns}
 \end{frame}
 
-% Slide 19: Sviluppi Futuri
+% Slide 20: Sviluppi Futuri
 \begin{frame}{14. Sviluppi Futuri}
  La piattaforma KarateFlow è predisposta per un'espansione e miglioramento continuo:
   \vspace{0.4cm}
@@ -582,7 +610,7 @@
   \end{columns}
 \end{frame}
 
-% Slide 20: Conclusione
+% Slide 21: Conclusione
 \begin{frame}{15. Conclusione}
   \begin{columns}
     \begin{column}{0.6\textwidth}
