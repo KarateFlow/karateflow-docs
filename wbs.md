@@ -135,6 +135,19 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
     * 1.5.2.2.3 Estensione della pipeline del Backend con build Docker, push e rollout su Kubernetes (Task: KF-EPIC-4-STORY-2-TASK-3).
     * 1.5.2.2.4 Estensione della pipeline del Frontend con build Docker, push e rollout su Kubernetes (Task: KF-EPIC-4-STORY-2-TASK-4).
 
-#### 1.6 Fase 5: Incremento funzionale e Analisi avanzata performance
-*(Verrà dettagliata alla fine della Fase 4.)*
+#### 1.6 Fase 5: Qualità del Codice, Analisi Statica & Sicurezza
+* **1.6.1 Provisioning di SonarQube su K3s (WP 5.1)**
+  * [x] 1.6.1.1 Configurazione di PostgreSQL dedicato e Deployment del pod SonarQube (Task: KF-E5-S1-T1).
+  * [x] 1.6.1.2 Risoluzione dei crash Out-Of-Memory (OOMKilled) del pod innalzando il limite di memoria a 3Gi.
+* **1.6.2 Integrazione SonarQube & Coverage Backend (WP 5.2)**
+  * [x] 1.6.2.1 Sdoppiamento della pipeline del backend in Jenkinsfile.backend.ci e Jenkinsfile.backend.cd (Task: KF-E5-S2-T1).
+  * [x] 1.6.2.2 Integrazione di jacoco-maven-plugin per la generazione dei report XML di code coverage (Task: KF-E5-S2-T3).
+* **1.6.3 Integrazione SonarQube & Coverage Frontend (WP 5.3)**
+  * [x] 1.6.3.1 Sdoppiamento della pipeline del frontend in Jenkinsfile.frontend.ci e Jenkinsfile.frontend.cd (Task: KF-E5-S3-T1).
+  * [x] 1.6.3.2 Installazione di @vitest/coverage-v8 e configurazione dei coverageReporters in angular.json (Task: KF-E5-S3-T3).
+  * [x] 1.6.3.3 Creazione di tsconfig.sonar.json per risolvere l'incompatibilità dell'opzione module: preserve con SonarQube (Task: KF-E5-S3-T3).
+  * [x] 1.6.3.4 Risoluzione dell'errore di Rosetta su agent ARM64 scrivendo lo script di bootstrap per il binario nativo del SonarScanner CLI (Bug: KF-E5-S3-B1).
+  * [x] 1.6.3.5 Configurazione della pipeline Jenkinsfile.frontend.ci per rilevare ed inviare dinamicamente la coverage tramite lcov.info (Task: KF-E5-S3-T4).
+
+
 
