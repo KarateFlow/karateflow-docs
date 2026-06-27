@@ -129,19 +129,9 @@
         \end{column}
         \begin{column}{0.45\textwidth}
           \centering
-          \begin{minipage}{0.48\linewidth}
-            \centering
-            \includegraphics[height=3.8cm, width=\linewidth, keepaspectratio]{images/CNU-2026.jpg}\\
-            \vspace{0.1cm}
-            \tiny{Campionati Nazionali Universitari, Maggio 2026}
-          \end{minipage}
-          \hfill
-          \begin{minipage}{0.48\linewidth}
-            \centering
-            \includegraphics[height=3.8cm, width=\linewidth, keepaspectratio]{images/atleta-federiciano.jpg}\\
-            \vspace{0.1cm}
-            \tiny{Programma Atleta Federiciano}
-          \end{minipage}
+          \includegraphics[height=5.2cm, width=\linewidth, keepaspectratio]{images/CNU-2026.jpg}\\
+          \vspace{0.2cm}
+          \small{Campionati Nazionali Universitari, Maggio 2026}
         \end{column}
       \end{columns}
     \end{frame}
@@ -199,35 +189,50 @@
   \end{itemize}
 \end{frame}
 
-% Slide 6: Architettura a blocchi
+% Slide 6: Architettura e Stack Tecnologico
 \begin{frame}{4. Architettura e Stack Tecnologico}
   \begin{center}
     \begin{tikzpicture}[
-      node distance=1.2cm and 1cm,
-      box/.style={draw, rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=karateGray, font=\footnotesize},
-      accentbox/.style={draw=karateRed, rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, fill=karateRed!10, font=\footnotesize},
+      scale=0.85, every node/.style={transform shape},
+      box/.style={draw, rectangle, rounded corners, minimum width=2.3cm, minimum height=1.3cm, align=center, fill=white, font=\scriptsize},
       arrow/.style={-latex, thick}
     ]
-      % Nodes
-      \node[box] (fe) {\textbf{Frontend (Angular)}\\SPA Statica (Nginx)};
-      \node[box, right=of fe] (be) {\textbf{Backend (Spring Boot)}\\REST API};
-      \node[box, right=of be] (db) {\textbf{Database (MongoDB)}\\Dati Flessibili NoSQL};
-      \node[accentbox, below=of be] (k3s) {\textbf{Cluster K3s}\\Raspberry Pi 5 Host (Staging \& Prod)};
-      \node[box, left=of k3s] (infra) {\textbf{IaC (Terraform)}\\Definizione Limiti/Namespace};
-      \node[box, right=of k3s] (tunnel) {\textbf{Cloudflare Tunnel}\\Connettività HTTPS Sicura};
 
-      % Arrows
-      \draw[arrow] (fe) -- (be);
+      % 1. Host Fisico (Raspberry Pi 5)
+      \draw[draw=karateDark, fill=karateDark!2, rounded corners=8pt, dashed, thick] (-1.5, -2.5) rectangle (7.0, 2.5);
+      \node[anchor=north east] at (6.8, 2.4) {\includegraphics[height=0.35cm, keepaspectratio]{images/raspberry-logo.png}\ \bfseries\scriptsize Raspberry Pi 5 Host};
+
+      % 2. Cluster K3s (Contenitore logico interno)
+      \draw[draw=karateRed, fill=karateRed!3, rounded corners=6pt, thick] (-1.2, -2.2) rectangle (6.7, 1.8);
+      \node[anchor=south west, text=karateRed] at (-1.1, -2.1) {\includegraphics[height=0.35cm, keepaspectratio]{images/kubernetes-logo.png}\ \bfseries\scriptsize Cluster K3s};
+
+      % 3. Nodi all'interno del Cluster K3s
+      \node[box] (fe) at (0.2, 0.8) {\includegraphics[height=0.35cm, keepaspectratio]{images/angular-logo.png}\\\textbf{Frontend Angular}\\SPA Statica (Nginx)};
+      \node[box] (be) at (2.8, 0.8) {\includegraphics[height=0.35cm, keepaspectratio]{images/springboot-logo.png}\\\textbf{Backend Spring}\\REST API};
+      \node[box] (db) at (5.4, 0.8) {\includegraphics[height=0.35cm, keepaspectratio]{images/mongodb-logo.png}\\\textbf{Database Mongo}\\Persistenza Dati};
+
+      \node[box] (traefik) at (0.2, -1.2) {\includegraphics[height=0.35cm, keepaspectratio]{images/traefik-logo.png}\\\textbf{Traefik Ingress}\\Proxy / Ingress};
+      \node[box] (cf) at (2.8, -1.2) {\includegraphics[height=0.35cm, keepaspectratio]{images/cloudflare-logo.png}\\\textbf{Cloudflare Tunnel}\\Daemon Pod};
+
+      % 4. Terraform (Esterno al Raspberry Pi 5)
+      \node[box] (infra) at (-3.2, 0) {\includegraphics[height=0.35cm, keepaspectratio]{images/terraform-logo.png}\\\textbf{Terraform IaC}\\Provisioning};
+
+      % Frecce di collegamento
+      \draw[arrow] (infra) -- (-1.5, 0) node[midway, above, font=\tiny] {IaC Apply};
+      \draw[arrow] (cf) -- (traefik) node[midway, below, font=\tiny] {Routing};
+      \draw[arrow] (traefik) -- (fe);
+      \draw[arrow] (traefik) -- (be);
+      \draw[arrow] (fe) -- (be) node[midway, above, font=\tiny] {API Calls};
       \draw[arrow] (be) -- (db);
-      \draw[arrow] (infra) -- (k3s);
-      \draw[arrow] (k3s) -- (tunnel);
-      \draw[arrow] (fe) .. controls +(down:1) and +(left:0.5) .. (k3s);
-      \draw[arrow] (be) -- (k3s);
+
+      % Ingresso traffico esterno
+      \draw[arrow, <-, thick] (cf.south) -- ++(0, -0.6) node[below, font=\tiny] {Traffico Esterno HTTPS};
+
     \end{tikzpicture}
   \end{center}
-  \vspace{0.2cm}
+  \vspace{0.1cm}
   \centering
-  \scriptsize{L'architettura multi-repository si basa su servizi isolati ed integrati in un cluster kubernetes.}
+  \scriptsize{L'architettura del sistema vede l'intera applicazione racchiusa nel recinto Kubernetes (K3s) ospitato localmente sul Raspberry Pi 5.}
 \end{frame}
 
 % Slide 7: Hosting e Vincoli Fisici
@@ -253,7 +258,7 @@
         \textbf{Hardware:} Raspberry Pi 5\\
         \textbf{RAM:} 8 GB\\
         \textbf{Storage:} SSD USB 3.0\\
-        \textbf{OS:} Raspberry Pi OS (Debian 12 Bookworm)\\
+        \textbf{OS:} Debian GNU/Linux 13 (Trixie)\\
       \end{tcolorbox}
     \end{column}
   \end{columns}
@@ -308,7 +313,6 @@
         \item \textbf{\texttt{requisiti-architettura.md}:} Contiene i vincoli del Raspberry Pi 5 e la roadmap evolutiva di alto livello.
         \item \textbf{\texttt{branching-strategy.md}:} Definisce lo sviluppo basato su Trunk-Based Development.
         \item \textbf{\texttt{guida-tracciabilità.md}:} In cui spiego l'approccio utilizzato per la gestione della board e dei Ticket.
-        \item \textbf{\texttt{wbs.md}:} Traccia l'elenco gerarchico dei Work Packages, che sono tradotti in EPICHE.
         \item \textbf{Cartella \texttt{diario-di-bordo/}:} File markdown incrementali che descrivono l'andamento del progetto e le decisioni prese in ogni singola fase.
       \end{itemize}
 
@@ -552,7 +556,6 @@
     \end{column}
     \begin{column}{0.45\textwidth}
       \begin{block}{Dashboard SonarQube}
-        \centering
         \includegraphics[width=\textwidth]{images/sonar-dashboard.png}\\
         \vspace{0.1cm}
         \scriptsize{Analisi della qualità statica e superamento del Quality Gate.}
@@ -561,9 +564,33 @@
   \end{columns}
 \end{frame}
 
-% Slide 19: La Fase 6: Messa in Produzione
-\begin{frame}{13. La Fase 6: Messa in Produzione}
-  L'ultimo step prevede il rilascio stabile in ambiente di produzione e l'utilizzo del software da parte degli utenti finali.  
+% Slide 19: EPIC-6: Gestione Avanzata Test
+\begin{frame}{13. EPIC-6: Gestione Avanzata Test (Template e Confronto)}
+  \begin{columns}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Sviluppo Funzionalità \& Business Logic}
+        \begin{itemize}
+          \item \textbf{Template di Test:} Creazione della collezione \texttt{TestTemplate} ed integrazione nel form Angular per l'autocompilazione degli esercizi.
+          \item \textbf{Motore di Calcolo Delta:} Calcolo in tempo reale di differenze assolute e variazioni percentuali tra test storici.
+          \item \textbf{Media Ponderata:} Adottata rispetto alla media aritmetica per ponderare il progresso sui valori iniziali assoluti di baseline (evitando la distorsione dei piccoli numeri).
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Visualizzazione \& Persistenza}
+        \begin{itemize}
+          \item \textbf{Dashboard Grafica:} Tabelle comparative con codice colore semantico e grafici interattivi ad andamento temporale.
+          \item \textbf{Immutabilità dei Report:} Salvataggio degli snapshot pre-calcolati nella collezione \texttt{reports} per azzerare i ricalcoli futuri.
+          \item \textbf{Esportazione PDF Client-Side:} Generazione del report in PDF interamente nel browser tramite \texttt{jspdf} e \texttt{html2canvas} (risparmio risorse CPU/RAM dell'host).
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% Slide 20: Rilascio in Produzione
+\begin{frame}{14. Rilascio in Produzione}
+  Il rilascio stabile dell'applicazione in produzione avverrà dopo il completamento delle rimanenti Epiche di progetto (Sicurezza/Keycloak, Ristrutturazione UI/UX e Monitoring/PLG).  
   \vspace{0.4cm}
   \begin{columns}
     \begin{column}{0.5\textwidth}
@@ -586,8 +613,8 @@
   \end{columns}
 \end{frame}
 
-% Slide 20: Sviluppi Futuri
-\begin{frame}{14. Sviluppi Futuri}
+% Slide 21: Sviluppi Futuri
+\begin{frame}{15. Sviluppi Futuri}
  La piattaforma KarateFlow è predisposta per un'espansione e miglioramento continuo:
   \vspace{0.4cm}
   \begin{columns}
@@ -600,9 +627,9 @@
          \begin{column}{0.48\textwidth}
           \begin{tcolorbox}[colback=karateDark!5, colframe=karateDark, title=2. Monetizzazione Futura (SaaS), height=4.5cm]
             \begin{itemize}
-              \item Modello \textbf{SaaS} da vendere a potenziali clienti nell'ambito sportivo. 
-              \item Piani di Abbonamento con funzionalità differenziate.
-              \item Payment Gateway con gestione fatturazioni ricorrenti e pagamenti automatici.
+               \item Modello \textbf{SaaS} da vendere a potenziali clienti nell'ambito sportivo. 
+               \item Piani di Abbonamento con funzionalità differenziate.
+               \item Payment Gateway con gestione fatturazioni ricorrenti e pagamenti automatici.
             \end{itemize}
           \end{tcolorbox}
         \end{column}
@@ -610,8 +637,8 @@
   \end{columns}
 \end{frame}
 
-% Slide 21: Conclusione
-\begin{frame}{15. Conclusione}
+% Slide 22: Conclusione
+\begin{frame}{16. Conclusione}
   \begin{columns}
     \begin{column}{0.6\textwidth}
       \textbf{Risultati Raggiunti:}
