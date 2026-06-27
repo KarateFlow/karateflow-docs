@@ -149,5 +149,24 @@ Adottiamo l'approccio *Rolling Wave Planning*: le fasi imminenti sono dettagliat
   * [x] 1.6.3.4 Risoluzione dell'errore di Rosetta su agent ARM64 scrivendo lo script di bootstrap per il binario nativo del SonarScanner CLI (Bug: KF-E5-S3-B1).
   * [x] 1.6.3.5 Configurazione della pipeline Jenkinsfile.frontend.ci per rilevare ed inviare dinamicamente la coverage tramite lcov.info (Task: KF-E5-S3-T4).
 
+#### 1.7 Fase 6: Gestione Avanzata Test (Template e Confronto)
+* **1.7.1 Completamento CRUD Core e Bugfixing (Story: KF-EPIC-6-STORY-0)**
+  * [x] 1.7.1.1 [BE] Implementazione endpoint GET (dettaglio), PUT e DELETE per i Test (Task: KF-E6-S0-T1)
+  * [x] 1.7.1.2 [FE] Vista read-only dettaglio e modale per aggiornamenti/cancellazione del test (Task: KF-E6-S0-T2)
+  * [x] 1.7.1.3 [FE Bug] Pagina di creazione Test: l'interfaccia non risponde correttamente agli errori (Bug: KF-E6-S0-B1)
+* **1.7.2 Gestione Template di Test (Story: KF-EPIC-6-STORY-1)**
+  * [x] 1.7.2.1 [BE] Creazione collezione TestTemplate e sviluppo endpoint REST per operazioni CRUD (Task: KF-E6-S1-T1)
+  * [x] 1.7.2.2 [FE] Sviluppo interfaccia per i Template di Test (Task: KF-E6-S1-T2)
+  * [x] 1.7.2.3 [FE] Integrazione selettore Template nel form di registrazione nuovo test (Task: KF-E6-S1-T3)
+* **1.7.3 Implementazione confronto tra Test (Story: KF-EPIC-6-STORY-2)**
+  * [x] 1.7.3.1 [BE] Sviluppo algoritmi di calcolo per confronto fra test (Task: KF-E6-S2-T1)
+  * [x] 1.7.3.2 [BE] Endpoint REST per preview confronto fra test (Task: KF-E6-S2-T2)
+  * [x] 1.7.3.3 [FE] Sviluppo UI anteprima del confronto fra test (Task: KF-E6-S2-T3)
+* **1.7.4 Persistenza del Confronto fra Test e Export PDF (Story: KF-EPIC-6-STORY-3)**
+  * [x] 1.7.4.1 [BE] Creazione nuova collezione reports e sviluppo API (Task: KF-E6-S3-T1)
+  * [x] 1.7.4.2 [FE] Sviluppo tab "Report Salvati", invocazione API di salvataggio e logica di re-idratazione dei grafici (Task: KF-E6-S3-T2)
+  * [x] 1.7.4.3 [FE] Implementazione motore client-side per la generazione e il download del report in formato PDF (Task: KF-E6-S3-T3)
+
+
 
 
