@@ -37,6 +37,7 @@ La cronologia delle sessioni di sviluppo, i problemi riscontrati e il registro d
 * 📁 [Fase 3: Sviluppo Funzionalità Core (MVP)](./diario-di-bordo/04-sviluppo-funzionalità-core.md)
 * 📁 [Fase 4: Provisioning Infrastruttura](./diario-di-bordo/05-provisioning-infrastruttura.md)
 * 📁 [Fase 5: Disaccoppiamento DevOps e Setup Quality Gate](./diario-di-bordo/06-qualita-codice-e-sicurezza.md)
+* 📁 [Fase 6: Gestione Avanzata Test (Template e Confronto)](./diario-di-bordo/07-gestione-avanzata-test.md)
 
 ---
 
