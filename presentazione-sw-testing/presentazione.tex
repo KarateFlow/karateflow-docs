@@ -70,14 +70,13 @@
     \begin{column}{0.6\textwidth}
       \textbf{Piattaforma Web per il tracciamento atletico:}
       \begin{itemize}
-        \item Registrazione sistematica delle misurazioni fisiche e tecniche degli atleti.
+        \item Registrazione delle misurazioni fisiche e tecniche degli atleti.
         \item Generazione automatica di metriche di performance e report storici.
-        \item Algoritmi di confronto intelligente per supportare le decisioni del Coach.
       \end{itemize}
       \vspace{0.3cm}
       \textbf{Esigenza Reale:}
       \begin{itemize}
-        \item Digitalizzare il lavoro del preparatore sul tatami, sostituendo i fogli cartacei o fogli Excel frammentati.
+        \item Digitalizzare il lavoro dei preparatori, sostituendo i fogli cartacei o fogli Excel frammentati.
       \end{itemize}
     \end{column}
     \begin{column}{0.35\textwidth}
@@ -88,317 +87,61 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{2. Contesto e Obiettivi del Corso di Software Testing}
+\begin{frame}{2. L'architettura}
+
+\end{frame}
+
+\begin{frame}{3. L'applicazione}
+
+\end{frame} 
+
+\begin{frame}{4. Contesto e Obiettivi del Corso di Software Testing}
   Il progetto KarateFlow, sviluppato inizialmente come evoluzione per il corso di \textbf{SPME}, viene integrato con una robusta suite di test e automazione per il corso di \textbf{Software Testing}.
   \vspace{0.4cm}
   
   I tre obiettivi principali del progetto di Software Testing sono:
   \vspace{0.2cm}
   \begin{enumerate}
-    \item \textbf{Integrazione di Testing Avanzato:} Sviluppo di test di integrazione sul backend tramite \texttt{Testcontainers} e modernizzazione del testing del frontend con \texttt{Vitest}.
-    \item \textbf{Aumento della Coverage e Riduzione del Debito Tecnico:} Incremento della copertura dei branch ed eliminazione sistematica delle anomalie individuate dai linter e sensori di qualità.
-    \item \textbf{Integrazione di GitHub Actions:} Realizzazione di pipeline in cloud e confronto comparativo con l'attuale orchestratore locale \textbf{Jenkins}.
+    \item \textbf{Integrazione di Testing Avanzato:} Mutation Testing, Performance & Load Testing, Automated E2E Testing.
+    \item \textbf{Aumento della Coverage e Riduzione del Debito Tecnico:} Incremento della copertura dei branch ed eliminazione sistematica delle anomalie individuate dai linter e SonarQube.
+    \item \textbf{Integrazione di GitHub Actions:} Realizzazione di pipeline in cloud e confronto con l'attuale strumento di CI/CD locale \textbf{Jenkins}.
   \end{enumerate}
 \end{frame}
 
-\begin{frame}{3. L'architettura}
-  \begin{center}
-    \begin{tikzpicture}[
-      scale=0.9, every node/.style={transform shape},
-      box/.style={draw, rectangle, rounded corners, minimum width=2.3cm, minimum height=1.3cm, align=center, fill=white, font=\scriptsize},
-      arrow/.style={-latex, thick}
-    ]
+\begin{frame}{5. Stato iniziale della suite di test}
 
-      % 1. Host Fisico (Raspberry Pi 5)
-      \draw[draw=karateDark, fill=karateDark!2, rounded corners=8pt, dashed, thick] (-1.5, -2.5) rectangle (7.0, 2.5);
-      \node[anchor=north east] at (6.8, 2.4) {\includegraphics[height=0.35cm, keepaspectratio]{images/raspberry-logo.png}\ \bfseries\scriptsize Raspberry Pi 5 Host};
-
-      % 2. Cluster K3s (Contenitore logico interno)
-      \draw[draw=karateRed, fill=karateRed!3, rounded corners=6pt, thick] (-1.2, -2.2) rectangle (6.7, 1.8);
-      \node[anchor=south west, text=karateRed] at (-1.1, -2.1) {\includegraphics[height=0.35cm, keepaspectratio]{images/kubernetes-logo.png}\ \bfseries\scriptsize Cluster K3s};
-
-      % 3. Nodi all'interno del Cluster K3s
-      \node[box] (fe) at (0.2, 0.8) {\includegraphics[height=0.35cm, keepaspectratio]{images/angular-logo.png}\\\textbf{Frontend Angular}\\SPA Statica (Nginx)};
-      \node[box] (be) at (2.8, 0.8) {\includegraphics[height=0.35cm, keepaspectratio]{images/springboot-logo.png}\\\textbf{Backend Spring}\\REST API};
-      \node[box] (db) at (5.4, 0.8) {\includegraphics[height=0.45cm, keepaspectratio]{images/mongodb-logo.png}\\\textbf{Database Mongo}\\Persistenza Dati};
-
-      \node[box] (traefik) at (0.2, -1.2) {\includegraphics[height=0.35cm, keepaspectratio]{images/traefik-logo.png}\\\textbf{Traefik Ingress}\\Proxy / Ingress};
-      \node[box] (cf) at (2.8, -1.2) {\includegraphics[height=0.35cm, keepaspectratio]{images/cloudflare-logo.png}\\\textbf{Cloudflare Tunnel}\\Daemon Pod};
-
-      % 4. Terraform (Esterno al Raspberry Pi 5)
-      \node[box] (infra) at (-3.2, 0) {\includegraphics[height=0.35cm, keepaspectratio]{images/terraform-logo.png}\\\textbf{Terraform IaC}\\Provisioning};
-
-      % Frecce di collegamento
-      \draw[arrow] (infra) -- (-1.5, 0) node[midway, above, font=\tiny] {IaC Apply};
-      \draw[arrow] (cf) -- (traefik) node[midway, below, font=\tiny] {Routing};
-      \draw[arrow] (traefik) -- (fe);
-      \draw[arrow] (traefik) -- (be);
-      \draw[arrow] (fe) -- (be) node[midway, above, font=\tiny] {API Calls};
-      \draw[arrow] (be) -- (db);
-
-      % Ingresso traffico esterno
-      \draw[arrow, <-, thick] (cf.south) -- ++(0, -0.6) node[below, font=\tiny] {Traffico Esterno HTTPS};
-
-    \end{tikzpicture}
-  \end{center}
-  \vspace{0.1cm}
-  \centering
-  \scriptsize{L'architettura del sistema vede l'intera applicazione racchiusa nel recinto Kubernetes (K3s) ospitato localmente sul Raspberry Pi 5.}
 \end{frame}
 
-\begin{frame}{4. Stato di Partenza: Strategia di Testing}
-  La convalida del software all'avvio del progetto presenta la seguente struttura di test di base:
-  \vspace{0.3cm}
-  \begin{table}[]
-    \scriptsize
-    \centering
-    \begin{tabular}{llll}
-      \toprule
-      \textbf{Ambito} & \textbf{Tipologia di Test} & \textbf{Tecnologia / Libreria} & \textbf{Scopo principale} \\ \midrule
-      \textbf{Backend} & Unit Testing & JUnit 5, Mockito \& MockMvc & Logica dei casi d'uso e REST Controllers. \\
-      & Analisi Statica & PMD & Verifica preliminare di code smell e convenzioni. \\
-      & Code Coverage & JaCoCo & Rilevamento quantitativo della copertura. \\ \midrule
-      \textbf{Frontend} & Unit / UI Testing & Vitest, jsdom \& TestBed & Test isolati di componenti Angular, direttive e servizi. \\
-      & Analisi Statica & ESLint \& Prettier & Conformità dello stile TypeScript/Angular. \\
-      & Code Coverage & @vitest/coverage-v8 & Analisi quantitativa dei rami UI. \\ \bottomrule
-    \end{tabular}
-  \end{table}
+\begin{frame}{6. Mutation Testng}
+
 \end{frame}
 
-\begin{frame}{5. Stato di Partenza: Qualità Backend (JaCoCo)}
-  \begin{columns}
-    \begin{column}{0.52\textwidth}
-      \textbf{Metriche di Partenza (JaCoCo):}
-      \begin{itemize}
-        \item Line Coverage: \textbf{85\%} (838 / 980 linee)
-        \item Instruction Coverage: \textbf{85\%}
-        \item Branch Coverage: \alert{\textbf{55\%}} (137 / 248 rami)
-      \end{itemize}
-      \vspace{0.2cm}
-      \textbf{Analisi Critica:}
-      \begin{itemize}
-        \item Ottima copertura dei flussi principali (\emph{happy paths}) dei casi d'uso.
-        \item \alert{Debolezza sui branch (55\%):} Mancano i test per i flussi alternativi e di errore (es. eccezioni, validazioni fallite).
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \begin{block}{Dashboard SonarQube Backend}
-        \centering
-        \includegraphics[width=\textwidth]{images/sonar-be-status.png}\\
-        \vspace{0.1cm}
-        \scriptsize{Stato iniziale del backend caricato su SonarQube.}
-      \end{block}
-    \end{column}
-  \end{columns}
+\begin{frame}{7. Performance & Load Testing}
+
 \end{frame}
 
-\begin{frame}{6. Stato di Partenza: Qualità Frontend (Vitest)}
-  \begin{columns}
-    \begin{column}{0.52\textwidth}
-      \textbf{Metriche di Partenza (Vitest):}
-      \begin{itemize}
-        \item Line Coverage: \textbf{82\%} (1753 / 2137 linee)
-        \item Statement Coverage: \textbf{76.42\%}
-        \item Branch Coverage: \textbf{74.92\%} (756 / 1009 rami)
-      \end{itemize}
-      \vspace{0.2cm}
-      \textbf{Analisi Critica:}
-      \begin{itemize}
-        \item Buona copertura dell'interfaccia utente (UI) e delle logiche dei componenti.
-        \item La coverage mancante risiede principalmente in utility secondarie e nel codice di esportazione PDF.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.45\textwidth}
-      \begin{block}{Dashboard SonarQube Frontend}
-        \centering
-        \includegraphics[width=\textwidth]{images/sonar-fe-status.png}\\
-        \vspace{0.1cm}
-        \scriptsize{Stato iniziale del frontend caricato su SonarQube.}
-      \end{block}
-    \end{column}
-  \end{columns}
+\begin{frame}{8. Automated E2E Testing}
+
 \end{frame}
 
-\begin{frame}{7. Obiettivo 1: Integrazione di Testing Avanzato}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \textbf{Attività Pianificate:}
-      \begin{itemize}
-        \item \textbf{Integration Testing (BE):} Utilizzo di \texttt{Testcontainers} per avviare istanze reali di MongoDB durante i test.
-        \item \textbf{Singleton Pattern (BE):} Configurazione del container persistente per l'intero ciclo JVM dei test Maven, riducendo i tempi di avvio.
-        \item \textbf{UI Testing (FE):} Validazione dei form reattivi (autocompilazione da template, delta engine).
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{tcolorbox}[colback=karateRed!5, colframe=karateRed, title=Esito Implementazione (TODO)]
-        \centering
-        \vspace{0.5cm}
-        \scriptsize
-        \textit{[Inserire qui a fine progetto:]}\\
-        \begin{itemize}
-          \item Numero totale di test scritti.
-          \item Tempi di esecuzione misurati (es. secondi totali suite backend/frontend).
-          \item Grafico comparativo delle performance dei runner (es. Vitest vs Karma).
-        \end{itemize}
-        \vspace{0.3cm}
-      \end{tcolorbox}
-    \end{column}
-  \end{columns}
+\begin{frame}{9. DevOps: Stato attuale pipeline di CI/CD}
+
 \end{frame}
 
-\begin{frame}{8. Obiettivo 2: Aumento Coverage e Riduzione Debito}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \textbf{Attività Pianificate:}
-      \begin{itemize}
-        \item \textbf{Test parametrici (BE):} Utilizzo di \texttt{@ParameterizedTest} in JUnit 5 per testare input multipli e scenari di errore.
-        \item \textbf{Analisi Qualità:} Risoluzione sistematica delle segnalazioni SonarQube e PMD.
-        \item \textbf{Quality Gate Automatica:} Blocco del rilascio CD se il codice sul branch \texttt{main} non soddisfa i requisiti di qualità impostati.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{tcolorbox}[colback=karateRed!5, colframe=karateRed, title=Esito Implementazione (TODO)]
-        \centering
-        \vspace{0.6cm}
-        \scriptsize
-        \textit{[Inserire qui a fine progetto:]}\\
-        \begin{itemize}
-          \item Percentuali finali di coverage raggiunte (BE e FE).
-          \item Screenshot del Quality Gate superato su SonarQube.
-          \item Statistiche sul debito tecnico rimosso.
-        \end{itemize}
-        \vspace{0.6cm}
-      \end{tcolorbox}
-    \end{column}
-  \end{columns}
+\begin{frame}{10. DevOps: Integrazione Github Actions}
+
+\end{frame} 
+
+\begin{frame}{11. DevOps: Github Actions vs Jenkins}
+
 \end{frame}
 
-\begin{frame}{9. Obiettivo 3: CI/CD e Integrazione GitHub Actions}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \textbf{Stato Iniziale (Jenkins):}
-      \begin{itemize}
-        \item Orchestratore locale Jenkins in Docker Compose.
-        \item Limite di NAT domestico: trigger forzato tramite polling (\textbf{Poll SCM} ogni 5 min).
-      \end{itemize}
-      \vspace{0.2cm}
-      \textbf{Evoluzione (GitHub Actions):}
-      \begin{itemize}
-        \item Sviluppo di workflow YAML in cloud per build, test e scansione di qualità.
-        \item Trigger nativo istantaneo su Push e Pull Request tramite webhook.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{tcolorbox}[colback=karateRed!5, colframe=karateRed, title=Setup del Confronto (TODO)]
-        \centering
-        \vspace{0.5cm}
-        \scriptsize
-        \textit{[Inserire qui a fine progetto:]}\\
-        \begin{itemize}
-          \item Tempi di esecuzione medi della build (Jenkins vs GitHub Actions).
-          \item Analisi dei costi e manutenzione.
-          \item Discussione sulla sicurezza del deploy locale da cloud.
-        \end{itemize}
-        \vspace{0.5cm}
-      \end{tcolorbox}
-    \end{column}
-  \end{columns}
-\end{frame}
+\begin{frame}{12. Prossime integrazioni} 
 
-\begin{frame}{10. Confronto Tecnologico: Jenkins vs GitHub Actions}
-  \begin{tcolorbox}[colback=karateRed!5, colframe=karateRed, title=Spazio per Analisi Comparativa Post-Implementazione (TODO)]
-    \centering
-    \vspace{0.3cm}
-    \textit{[Aggiungere qui la tabella comparativa finale compilata al termine delle sperimentazioni]}
-    \vspace{0.2cm}
-    \begin{table}[]
-      \tiny
-      \centering
-      \begin{tabular}{lll}
-        \toprule
-        \textbf{Caratteristica} & \textbf{Jenkins (Locale)} & \textbf{GitHub Actions (Cloud)} \\ \midrule
-        \textbf{Hosting \& Costi} & \textit{[TODO: Costo/Risorse]} & \textit{[TODO: Costo/Risorse]} \\
-        \textbf{Trigger Event} & \textit{[TODO: Tipo trigger]} & \textit{[TODO: Tipo trigger]} \\
-        \textbf{Deployment locale} & \textit{[TODO: Sicurezza LAN]} & \textit{[TODO: Sicurezza Cloud-to-LAN]} \\
-        \textbf{Manutenzione} & \textit{[TODO: Plugin/Config]} & \textit{[TODO: Gestione YAML]} \\
-        \textbf{Tempo medio di build} & \textit{[TODO: Tempo in s]} & \textit{[TODO: Tempo in s]} \\ \bottomrule
-      \end{tabular}
-    \end{table}
-    \vspace{0.3cm}
-  \end{tcolorbox}
-\end{frame}
-
-\begin{frame}{11. Integrità del Codice e Quality Gate Finale}
-  \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \begin{tcolorbox}[colback=karateRed!5, colframe=karateRed, title=Controlli di Stato su GitHub (TODO), height=4.8cm]
-        \centering
-        \vspace{1.0cm}
-        \scriptsize
-        \textit{[Inserire qui lo screenshot di una Pull Request su GitHub protetta, bloccata in caso di fallimento delle nuove pipeline o del Quality Gate]}
-        \vspace{1.0cm}
-      \end{tcolorbox}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{tcolorbox}[colback=karateRed!5, colframe=karateRed, title=Esito della CI/CD Finale (TODO), height=4.8cm]
-        \centering
-        \vspace{1.0cm}
-        \scriptsize
-        \textit{[Inserire qui lo screenshot della dashboard Jenkins o GitHub Actions a build completata con successo]}
-        \vspace{1.0cm}
-      \end{tcolorbox}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}{12. Sviluppi Futuri del Testing}
-  A completamento degli obiettivi principali del corso, le prospettive future includono:
-  \vspace{0.3cm}
-  \begin{columns}
-    \begin{column}{0.48\textwidth}
-      \begin{block}{1. Test E2E con Playwright / Cypress}
-        Scrittura di scenari completi che validano il flusso utente reale (Login $\rightarrow$ Registrazione test $\rightarrow$ Generazione PDF client-side).
-      \end{block}
-      \begin{block}{2. Contract Testing con Pact}
-        Introduzione di test di contratto per assicurare l'allineamento dei DTO frontend/backend, evitando incompatibilità silenziose.
-      \end{block}
-    \end{column}
-    \begin{column}{0.48\textwidth}
-      \begin{block}{3. Dependency \& Vulnerability Scan}
-        Automazione di \texttt{dependency-check-maven} (BE) e \texttt{npm audit} (FE) nella pipeline CI per monitorare le vulnerabilità (CVE).
-      \end{block}
-    \end{column}
-  \end{columns}
 \end{frame}
 
 \begin{frame}{13. Conclusioni}
-  \begin{columns}
-    \begin{column}{0.6\textwidth}
-      \textbf{Stato di Partenza Stabilito:}
-      \begin{itemize}
-        \item Suite di test di base attive su backend e frontend.
-        \item Integrazione iniziale della qualità con SonarQube locale.
-      \end{itemize}
-      \vspace{0.3cm}
-      \textbf{Focalizzazione sul Progetto di Testing:}
-      \begin{itemize}
-        \item Risoluzione del divario di coverage (branch coverage backend al 55\%).
-        \item Aumento stabilità e isolamento tramite database reali containerizzati.
-        \item Scelta consapevole della tecnologia CI/CD in base alle risorse.
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.35\textwidth}
-      \begin{tcolorbox}[colback=karateDark, colframe=karateDark, title=\color{white}Fine Presentazione]
-        \color{white}
-        \centering
-        \vspace{0.5cm}
-        \textbf{Grazie per l'Attenzione!}
-        \vspace{0.5cm}
-        \small{Domande?}
-        \vspace{0.3cm}
-      \end{tcolorbox}
-    \end{column}
-  \end{columns}
+
 \end{frame}
 
 
