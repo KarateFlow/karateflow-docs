@@ -53,7 +53,7 @@
 
 % --- Dettagli del Titolo ---
 \title[KarateFlow - Testing]{KarateFlow}
-\subtitle{Qualità del Codice, Automazione CI/CD e Strategia di Testing}
+\subtitle{Gestione e Tracciamento delle Performance Atletiche nel Karate}
 \author[Simone Ingenito]{Simone Ingenito}
 \institute[UNINA]{Corso di Software Testing}
 \date[Luglio 2026]{27 Luglio 2026}
@@ -87,13 +87,75 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{2. L'architettura}
+    % Slide: Studente Atleta                                                                                                           
+    \begin{frame}{1.5 Note sull'Autore: Studente e Atleta}                                                                            
+      \begin{columns}                                                                                                                     
+        \begin{column}{0.5\textwidth}
+          \textbf{La Doppia Carriera:}
+          \begin{itemize}
+          \item Studente di Informatica Magistrale.
+            \item Membro del programma \href{https://atletafedericiano.unina.it/}{Atleta Federiciano}  presso l'Università degli Studi di Napoli Federico II.
+            \item Road to \textbf{EUSA Championships}, Tirana Settembre 2026.     
+          \end{itemize}
+          \vspace{0.3cm}
+          \textbf{Il Collegamento con KarateFlow:}
+          \begin{itemize}
+            \item Il software nasce da un'esigenza personale e del mio team di karate.
+          \end{itemize}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+          \centering
+          \includegraphics[height=5.2cm, width=\linewidth, keepaspectratio]{images/CNU-2026.jpg}\\
+          \vspace{0.2cm}
+          \small{Campionati Nazionali Universitari, Maggio 2026}
+        \end{column}
+      \end{columns}
+    \end{frame}
 
+\begin{frame}{2. L'architettura: Server domestico e cluster K3s}
+  \vfill
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{images/infrastructure-diagram.png}
+  \end{center}
+  \vfill
 \end{frame}
 
-\begin{frame}{3. L'applicazione}
+\begin{frame}{3. L'applicazione (Ambiente di Staging)}
+  L'applicazione web è interamente \textbf{hostata su un server Raspberry Pi}, fungendo da ambiente di Staging reale e accessibile dall'esterno.
+  \vspace{0.2cm}
+  
+  \begin{tcolorbox}[colback=karateGray, colframe=karateDark, title=Accesso alla Piattaforma]
+    \textbf{Link:} \href{https://staging.karate-flow.com}{\textbf{staging.karate-flow.com}}
+  \end{tcolorbox}
+  \vspace{0.2cm}
+  
+  \textbf{Principali funzionalità testabili in ambiente di staging:}
+  \begin{itemize}
+    \item \textbf{Gestione Anagrafica:} È possibile registrare e aggiungere un nuovo atleta al sistema.
+    \item \textbf{Registrazione Misurazioni:} Si possono creare e associare specifici test (tecnici o atletici) ai profili registrati.
+    \item \textbf{Analisi e Confronti:} Aggiungendo \textbf{almeno due test} per un singolo atleta, l'applicazione sblocca la funzionalità di confronto, permettendo di generare un report visivo per analizzare l'andamento delle misurazioni nel tempo.
+  \end{itemize}
+\end{frame}
 
-\end{frame} 
+\begin{frame}{3.5 Tracciabilità e Gestione del Progetto}
+  Per garantire un flusso di lavoro organizzato e tracciabile, ci si è affidati agli strumenti di \textbf{GitHub}:
+  \vspace{0.2cm}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \textbf{Board di Progetto}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/board-inizio-fase-4.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Tracciabilità e PR}
+      \begin{itemize}
+        \item \textbf{Issue e Milestone:} Organizzazione del lavoro in task specifici assegnati agli sviluppatori, raggruppati in Milestone per monitorare costantemente l'avanzamento.
+        \item \textbf{Pull Request Template:} Adozione di template standard per assicurare che le modifiche al codice includano documentazione, test e rispettino i requisiti prima del merge.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
 
 \begin{frame}{4. Contesto e Obiettivi del Corso di Software Testing}
   Il progetto KarateFlow, sviluppato inizialmente come evoluzione per il corso di \textbf{SPME}, viene integrato con una robusta suite di test e automazione per il corso di \textbf{Software Testing}.
@@ -108,41 +170,185 @@
   \end{enumerate}
 \end{frame}
 
+\begin{frame}{4.4 Setup Iniziale: Clonazione dei Repository}
+  Il progetto è suddiviso in più repository gestiti dall'organizzazione GitHub \textbf{KarateFlow}. Per configurare l'ambiente locale è necessario scaricarli tutti nella stessa cartella:
+  \vspace{0.3cm}
+  
+  \textbf{1. Creare la cartella principale:}
+  \begin{tcolorbox}[colback=karateLightDark, colframe=karateDark, coltext=karateGray]
+    \texttt{mkdir KarateFlow \&\& cd KarateFlow}
+  \end{tcolorbox}
+  \vspace{0.1cm}
+  
+  \textbf{2. Clonare i repository del progetto:}
+  \begin{tcolorbox}[colback=karateLightDark, colframe=karateDark, coltext=karateGray]
+    \texttt{git clone https://github.com/KarateFlow/karateflow-be.git}\\
+    \texttt{git clone https://github.com/KarateFlow/karateflow-fe.git}\\
+    \texttt{git clone https://github.com/KarateFlow/karateflow-infra.git}\\
+    \texttt{git clone https://github.com/KarateFlow/karateflow-docs.git}
+  \end{tcolorbox}
+\end{frame}
+
+\begin{frame}{4.5 Esecuzione del progetto in locale (Docker-based)}
+  L'intero ambiente di sviluppo locale è stato containerizzato, semplificando il setup ed eliminando la necessità di installare toolchain locali (Node, Maven, CLI).
+  \vspace{0.2cm}
+
+  L'avvio dell'applicazione richiede l'esecuzione sequenziale di due \texttt{docker-compose}:
+  \begin{enumerate}
+    \item \textbf{Backend (Primo step):} Dalla cartella \texttt{karateflow-be}, \texttt{docker-compose up} avvia sia \textbf{MongoDB} che l'API in \textbf{Spring Boot}, montando il codice sorgente per il live-reload e abilitando il debugging remoto (porta 5005).
+    \item \textbf{Frontend (Secondo step):} Successivamente, dalla cartella \texttt{karateflow-fe}, \texttt{docker-compose up} avvia l'app \textbf{Angular} tramite un container Node dedicato allo sviluppo, configurato per rilevare istantaneamente le modifiche al codice (polling).
+  \end{enumerate}
+  \vspace{0.2cm}
+  \textit{Nota: Anche l'ambiente CI/CD (Jenkins) può essere avviato opzionalmente tramite Docker dalla cartella \texttt{karateflow-infra}.}
+\end{frame}
+
+\begin{frame}{4.6 Testing Suite (Backend \& Frontend)}
+  La strategia di Quality Assurance si divide in due stack tecnologici distinti:
+  \vspace{0.2cm}
+  
+  \textbf{Backend (Spring Boot / Java)}
+  \begin{itemize}
+    \item \textbf{Unit \& Integration Testing:} Sviluppati con \textbf{JUnit 5} e \textbf{Spring Boot Test} per testare unitariamente la logica e in integrazione le API REST.
+    \item \textbf{Testcontainers:} Utilizzato per l'avvio di container effimeri di \textbf{MongoDB} durante i test di integrazione, garantendo un I/O reale rispetto ai database mockati.
+    \item \textbf{Code Quality:} Linting del codice tramite \textbf{PMD} e code coverage misurata tramite \textbf{JaCoCo}.
+  \end{itemize}
+  
+  \vspace{0.2cm}
+  \textbf{Frontend (Angular / TypeScript)}
+  \begin{itemize}
+    \item \textbf{Unit Testing:} Adozione di \textbf{Vitest}, test runner moderno con report agganciati a SonarQube.
+    \item \textbf{Code Quality:} Analisi statica tramite \textbf{ESLint}.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{5. Stato iniziale della suite di test}
-
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Stato Iniziale Backend (SonarQube)}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/sonar-be-status.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Stato Iniziale Frontend (SonarQube)}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/sonar-fe-status.png}
+      \end{center}
+    \end{column}
+  \end{columns}
 \end{frame}
 
-\begin{frame}{6. Mutation Testng}
-
+\begin{frame}{6. Mutation Testing con PIT (Pitest)}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Baseline Report (Iniziale)}
+      \begin{center}
+        \includegraphics[width=0.5\textwidth]{images/mutant-first-report.png}
+      \end{center}
+      \footnotesize
+      \begin{itemize}
+        \item Totale Mutanti: \textbf{283}
+        \item Uccisi (Killed): 186
+        \item Sopravvissuti: 97
+        \item Mutation Coverage: \textbf{66\%}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Updated Report (Post-Fix)}
+      \begin{center}
+        \includegraphics[width=0.5\textwidth]{images/mutation-updated-report.png}
+      \end{center}
+      \footnotesize
+      \begin{itemize}
+        \item Totale Mutanti: \textbf{282}
+        \item Uccisi (Killed): 251
+        \item Sopravvissuti: 31
+        \item Mutation Coverage: \textbf{89\%}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{0.3cm}
+  \scriptsize{\textit{Nota: Il mutation testing è stato momentaneamente escluso dalla pipeline di CI a causa dei lunghi tempi di esecuzione. Verrà eseguito in una pipeline di Release dedicata.}}
 \end{frame}
 
-\begin{frame}{7. Performance & Load Testing}
-
+\begin{frame}{7. Performance \& Load Testing}
+  \begin{itemize}
+    \item \textit{[Placeholder: Dettagli sugli strumenti utilizzati per i test di carico (es. JMeter, Gatling, k6)]}
+    \item \textit{[Placeholder: Risultati ottenuti (latenza, throughput, colli di bottiglia)]}
+    \item \textit{[Placeholder: Immagini o grafici dei risultati dei test di performance]}
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{8. Automated E2E Testing}
+\begin{frame}{8. Automated E2E Testing: Strumenti e Approccio}
+  Per il testing End-to-End dell'applicazione web si è adottato un approccio \textbf{Behavior-Driven Development (BDD)} basato sulle seguenti tecnologie:
+  \vspace{0.3cm}
+  \begin{itemize}
+    \item \textbf{Cucumber:} Utilizzato per scrivere gli scenari di test in linguaggio naturale (Gherkin), garantendo una chiara definizione dei requisiti di business e un'elevata leggibilità.
+    \item \textbf{Playwright:} Framework moderno impiegato "sotto il cofano" per l'automazione cross-browser. Consente di simulare in modo affidabile le interazioni reali dell'utente (es. compilazione dei form, click, navigazione).
+    \item \textbf{Esecuzione:} La suite di test viene lanciata tramite il comando \texttt{npm run test:e2e} (che orchestra Playwright tramite cucumber-js).
+    \item \textbf{Scenari scelti}: Ho implementato correttamente due scenari: Creazione dei test e Gestione Atleti.
+  \end{itemize}
+\end{frame}
 
+\begin{frame}{8.1 Automated E2E Testing: Report di Esecuzione}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{images/e2e-testing-executed.png}
+  \end{center}
 \end{frame}
 
 \begin{frame}{9. DevOps: Stato attuale pipeline di CI/CD}
-
+  \begin{itemize}
+    \item Attualmente gestito tramite \textbf{Jenkins}.
+    \includegraphics[width=0.8\textwidth]{images/jenkins-dashboard.png}
+    \item \textbf{Jenkins} è in esecuzione sulla \textbf{macchina di sviluppo} per evitare di saturare le risorse del Raspberry Pi (server della piattaforma).
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{10. DevOps: Integrazione Github Actions}
-
+  Per sfruttare l'infrastruttura cloud nativa, \textbf{le pipeline originariamente scritte per Jenkins sono state interamente tradotte in workflow di GitHub Actions}.
+  \vspace{0.2cm}
+  
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{Workflow GitHub}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/github-workflow.png}
+      \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Runner Self-Hosted (Testato)}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/runner-github-self-hosted.png}
+      \end{center}
+    \end{column}
+  \end{columns}
 \end{frame} 
 
 \begin{frame}{11. DevOps: Github Actions vs Jenkins}
-
+  \begin{itemize}
+    \item \textbf{Self-hosted vs GitHub-hosted runners:} Si è provato a usare runner self-hosted per GitHub Actions sul Raspberry Pi, ma saturavano le risorse impiegando troppo tempo. Si è preferito usare i server ospitati da GitHub.
+    \item \textbf{Performance:} \textbf{Jenkins} (in esecuzione sulla macchina di sviluppo) risulta \textbf{leggermente più veloce} rispetto ai workflow eseguiti sui server GitHub.
+    \item \textbf{Tempi di esecuzione:} Entrambe le soluzioni riescono comunque a concludere i task in \textbf{meno di un minuto}.
+    \item \textbf{Trigger:} Jenkins viene avviato manualmente o con pooling mentre i workflow GHA si avviano manualmente ad ogni PR. 
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{12. Prossime integrazioni} 
-
+  \begin{itemize}
+    \item Inclusione del \textbf{Mutation Testing} all'interno di una pipeline dedicata per le \textbf{Release}.
+    \item Traduzione delle pipeline di CD in workflow Github Actions. 
+    \item \textit{[Placeholder: Altre integrazioni future previste (Autenticazione, Observability e rilascio in \textbf{Produzione}).]}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{13. Conclusioni}
-
+  \begin{itemize}
+    \item \textit{[Placeholder: Sintesi dei risultati ottenuti con il Software Testing]}
+    \item \textit{[Placeholder: Impatto della CI/CD sul processo di sviluppo]}
+    \item \textit{[Placeholder: Ringraziamenti o Q\&A]}
+  \end{itemize}
 \end{frame}
 
 
 \end{document}
+
